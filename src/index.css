@@ -1,3 +1,5 @@
+@layer reset, tailwind, app;
+
 @import "tailwindcss";
 
 #root * {

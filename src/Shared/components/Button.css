@@ -1,0 +1,14 @@
+@layer app {
+  .custom-button {
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4),
+      0 0 0 3px #538b47;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-button.pressed {
+    box-shadow: inset 0 -2px 4px rgba(255, 255, 255, 0.4),
+      inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4),
+      0 0 0 3px #8b6f47;
+  }
+}
