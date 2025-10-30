@@ -7,12 +7,21 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
 import Login from "./User/pages/Login";
 import Signup from "./User/pages/Signup";
+import UserHome from "./User/pages/UserHome";
 
 function App() {
   const [count, setCount] = useState(0);
+  const DUMMY = {
+    id: "dummy",
+    fullName: "Dummy User",
+    mentalEnergy: 100,
+    physicalEnergy: 1000,
+    profileIcon: viteLogo,
+    inProgressTask: 10,
+    inProgressTaskType: "Sleep",
+  };
 
   return (
     <Router>
@@ -26,7 +35,7 @@ function App() {
               <img src={reactLogo} className="logo react" alt="React logo" />
             </a>
           </div>
-          <h1>Vite + React</h1>
+          <h1 className="text-2xl font-bold underline">Vite + React</h1>
           <div className="card">
             <button onClick={() => setCount((count) => count + 1)}>
               count is {count}
@@ -44,6 +53,9 @@ function App() {
         </Route>
         <Route path="/signup">
           <Signup />
+        </Route>
+        <Route path="/home">
+          <UserHome currentUser={DUMMY} />
         </Route>
         <Redirect to="/login" />
       </Switch>
