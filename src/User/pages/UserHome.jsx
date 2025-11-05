@@ -21,6 +21,7 @@ function UserHome(props) {
     <div
       className="relative h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}
+      id="menu-hook"
     >
       {/* Content container */}
       <div className="relative w-full h-full p-[2%] flex flex-col gap-[2%]">

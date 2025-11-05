@@ -1,4 +1,5 @@
 import Button from "../../Shared/components/Button";
+import MobileMenuButton from "./MobileMenuButton";
 
 function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
   // Helper function to choose color TODO CHANGE TO CORRECT FORMULA
@@ -80,6 +81,7 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
           />
         </div>
       </div>
+      <MobileMenuButton />
     </div>
   );
 }
