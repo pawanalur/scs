@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import "./Button.css";
 
 function Button({
@@ -20,13 +21,21 @@ function Button({
   };
 
   const variantColors = {
-    brown: "bg-[#d4a574] hover:bg-[#ddb892]",
-    red: "bg-[#d96666] hover:bg-[#e37f7f]",
-    green: "bg-[#69a96f] hover:bg-[#7dc184]",
+    brown: "bg-[#d4a574] hover:bg-[#ddb892] text-[#2d1810]",
+    red: "bg-[#d96666] hover:bg-[#e37f7f] text-white",
+    green: "bg-[#69a96f] hover:bg-[#7dc184] text-black",
+    black: "bg-[#333333] hover:bg-[#4d4d4d] text-white",
   };
 
   const disabledClasses =
     "opacity-50 cursor-not-allowed hover:none shadow-none";
+
+  const cssClasses =
+    twMerge(`custom-button font-bold text-[16px] tracking-[0.5px]  flex items-center justify-center
+        rounded-lg  transition-all duration-100 ease-in-out font-sans px-8 py-3 shadow-button  active:translate-y-0.5 
+        ${variantColors[styleVariant]}
+        ${disabled ? disabledClasses : "cursor-pointer"}
+        ${className}`);
 
   return (
     <button
@@ -35,11 +44,7 @@ function Button({
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
-      className={`custom-button font-bold text-[16px] tracking-[0.5px] text-[#2d1810]  
-        rounded-lg  transition-all duration-100 ease-in-out font-sans px-8 py-3 shadow-button  active:translate-y-[2px] 
-        ${variantColors[styleVariant]}
-        ${disabled ? disabledClasses : "cursor-pointer"}
-        ${className}`}
+      className={cssClasses}
     >
       {label}
     </button>

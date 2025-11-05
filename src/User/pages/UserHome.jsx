@@ -1,4 +1,4 @@
-import CurrentUser from "../components/CurrentUser";
+import TopBar from "../components/TopBar";
 import Sidebar from "../components/SideBar";
 
 import reactLogo from "../../assets/react.svg";
@@ -26,7 +26,7 @@ function UserHome(props) {
       <div className="relative w-full h-full p-[2%] flex flex-col gap-[2%]">
         {/* Top box */}
         <div className="h-[15%] bg-white/90 backdrop-blur-sm rounded-xl p-3 py-3 shadow-lg item-center">
-          <CurrentUser
+          <TopBar
             key={currentUser.id}
             fullName={currentUser.fullName}
             mentalEnergy={currentUser.mentalEnergy}
