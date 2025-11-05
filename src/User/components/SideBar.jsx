@@ -19,6 +19,7 @@ function Sidebar() {
             </>
           }
           className="flex-1 w-full"
+          styleVariant="brown"
         />
         <Button
           label={
@@ -28,6 +29,7 @@ function Sidebar() {
             </>
           }
           className="flex-1 w-full"
+          styleVariant="brown"
         />
       </div>
 
@@ -41,6 +43,7 @@ function Sidebar() {
             </>
           }
           className="w-full"
+          styleVariant="brown"
         />
       </div>
     </div>
