@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../Shared/components/Button";
-import MobileMenuButton from "./MobileMenuButton";
+import MobileMenuButton from "../components/MobileMenuButton";
 
 function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
   const navigate = useNavigate();

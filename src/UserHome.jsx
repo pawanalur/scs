@@ -1,9 +1,9 @@
-import TopBar from "../components/TopBar";
-import Sidebar from "../components/SideBar";
+import TopBar from "./Layout/views/TopBar";
+import Sidebar from "./Layout/views/SideBar";
 import { Outlet } from "react-router-dom";
 
-import reactLogo from "../../assets/react.svg";
-import backgroundImage from "../../assets/UserHome_Background.png";
+import reactLogo from "./assets/react.svg";
+import backgroundImage from "./assets/UserHome_Background.png";
 import "./UserHome.css";
 
 function UserHome(props) {

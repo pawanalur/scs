@@ -8,14 +8,14 @@ import {
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
-import Login from "./User/pages/Login";
-import Signup from "./User/pages/Signup";
-import UserHome from "./User/pages/UserHome";
-import InProgressScreen from "./User/sub-pages/InProgressScreen";
-import QuestScreen from "./User/sub-pages/QuestScreen";
-import PhysicalLog from "./User/sub-pages/PhysicalLog";
-import MentalLog from "./User/sub-pages/MentalLog";
-import ShopScreen from "./User/sub-pages/ShopScreen";
+import Login from "./Authentication/views/Login";
+import Signup from "./Authentication/views/Signup";
+import UserHome from "./UserHome";
+import InProgressScreen from "./MainBar/views/InProgressScreen";
+import QuestScreen from "./MainBar/views/QuestScreen";
+import PhysicalLog from "./MainBar/views/PhysicalLog";
+import MentalLog from "./MainBar/views/MentalLog";
+import ShopScreen from "./MainBar/views/ShopScreen";
 
 function App() {
   const [count, setCount] = useState(0);
