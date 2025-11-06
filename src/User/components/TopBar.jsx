@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 import Button from "../../Shared/components/Button";
 import MobileMenuButton from "./MobileMenuButton";
 
 function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
+  const navigate = useNavigate();
+
   // Helper function to choose color TODO CHANGE TO CORRECT FORMULA
   const getEnergyColor = (value, max = 1000) => {
     const percent = (value / max) * 100;
@@ -49,6 +53,7 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
               label="Button M1"
               className={buttonClasses}
               styleVariant="black"
+              onClick={() => navigate("/home")}
             />
           </div>
 
@@ -56,6 +61,7 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
             label="View Log"
             className={buttonClasses}
             styleVariant="green"
+            onClick={() => navigate("/home/mental-log")}
           />
         </div>
 
@@ -66,11 +72,13 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
               label="Button P1"
               className={buttonClasses}
               styleVariant="black"
+              onClick={() => navigate("/home")}
             />
             <Button
               label="Button P2"
               className={buttonClasses}
               styleVariant="black"
+              onClick={() => navigate("/home")}
             />
           </div>
 
@@ -78,6 +86,7 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
             label="View Log"
             className={buttonClasses}
             styleVariant="green"
+            onClick={() => navigate("/home/physical-log")}
           />
         </div>
       </div>

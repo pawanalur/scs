@@ -1,6 +1,9 @@
 import Button from "../../Shared/components/Button";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
   return (
     <div
       className="
@@ -20,6 +23,7 @@ function Sidebar() {
           }
           className="flex-1 w-full"
           styleVariant="brown"
+          onClick={() => navigate("/home")}
         />
         <Button
           label={
@@ -30,6 +34,7 @@ function Sidebar() {
           }
           className="flex-1 w-full"
           styleVariant="brown"
+          onClick={() => navigate("/home/quests")}
         />
       </div>
 
@@ -44,6 +49,7 @@ function Sidebar() {
           }
           className="w-full"
           styleVariant="brown"
+          onClick={() => navigate("/home/shop")}
         />
       </div>
     </div>

@@ -1,9 +1,10 @@
 import TopBar from "../components/TopBar";
 import Sidebar from "../components/SideBar";
-import MainBar from "../components/MainBar";
+import { Outlet } from "react-router-dom";
 
 import reactLogo from "../../assets/react.svg";
 import backgroundImage from "../../assets/UserHome_Background.png";
+import "./UserHome.css";
 
 function UserHome(props) {
   const GUEST = {
@@ -38,13 +39,13 @@ function UserHome(props) {
         </div>
 
         {/* Bottom row */}
-        <div className="flex flex-col md:flex-row gap-[2%] h-[85%] relative">
+        <div className="flex flex-col md:flex-row gap-[2%] h-[85%] relative min-h-0">
           {/* Left box */}
           <div
             className="md:w-[70%] w-full bg-white/70 backdrop-blur-sm rounded-xl p-6 shadow-lg order-1 
-                  overflow-y-auto md:mb-0 mb-[110px]"
+                  md:mb-0 mb-[110px] mainbar"
           >
-            <MainBar />
+            <Outlet />
           </div>
 
           {/* Right box */}
