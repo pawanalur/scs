@@ -1,5 +1,6 @@
 import TopBar from "../components/TopBar";
 import Sidebar from "../components/SideBar";
+import MainBar from "../components/MainBar";
 
 import reactLogo from "../../assets/react.svg";
 import backgroundImage from "../../assets/UserHome_Background.png";
@@ -43,15 +44,7 @@ function UserHome(props) {
             className="md:w-[70%] w-full bg-white/70 backdrop-blur-sm rounded-xl p-6 shadow-lg order-1 
                   overflow-y-auto md:mb-0 mb-[110px]"
           >
-            <h2 className="text-xl font-semibold">Left Box</h2>
-            <p>The user's current Task is: {currentUser.inProgressTaskType}</p>
-            <p>The user's current Task ID is: {currentUser.inProgressTask}</p>
-            {/* Example long content */}
-            <div className="space-y-4 mt-4">
-              {[...Array(20)].map((_, i) => (
-                <p key={i}>Scrollable content line {i + 1}</p>
-              ))}
-            </div>
+            <MainBar />
           </div>
 
           {/* Right box */}
