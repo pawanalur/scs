@@ -1,12 +1,12 @@
 import { lazy } from "react";
 
-import InProgressScreen from "./MainBar/views/InProgressScreen";
+import InProgressScreen from "./MainBar/screens/InProgressScreen";
 import UserHome from "./UserHome";
 
-const QuestScreen = lazy(() => import("./MainBar/views/QuestScreen"));
-const PhysicalLog = lazy(() => import("./MainBar/views/PhysicalLog"));
-const MentalLog = lazy(() => import("./MainBar/views/MentalLog"));
-const ShopScreen = lazy(() => import("./MainBar/views/ShopScreen"));
+const QuestScreen = lazy(() => import("./MainBar/screens/QuestScreen"));
+const PhysicalLog = lazy(() => import("./MainBar/screens/PhysicalLogScreen"));
+const MentalLog = lazy(() => import("./MainBar/screens/MentalLogScreen"));
+const ShopScreen = lazy(() => import("./MainBar/screens/ShopScreen"));
 
 export const userRoutes = {
   path: "/home",
