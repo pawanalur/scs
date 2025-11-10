@@ -5,7 +5,7 @@ function Button({
   label = "Click Me",
   onClick = () => console.log(`${label} was pressed!`),
   className = "",
-  styleVariant = "brown", // "brown" | "red" | "green"
+  styleVariant = "brown", // "brown" | "red" | "green" | "black"
   disabled = false,
 }) {
   const handleMouseDown = (e) => {
