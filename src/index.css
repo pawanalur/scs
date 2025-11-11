@@ -1,8 +1,6 @@
-@layer reset, tailwind, app;
-
 @import "tailwindcss";
 
-#root * {
+#root *:not(.w-md-editor *):not(.w-md-editor) {
   all: revert-layer;
   box-sizing: border-box;
 }

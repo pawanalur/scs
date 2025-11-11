@@ -1,13 +1,52 @@
-function InProgressActionDetails(
+import MDEditor from "@uiw/react-md-editor";
+
+function InProgressActionDetails({
   actionDetails,
   setActionDetails,
   actionType,
   setActionType,
-  isStarted
-) {
+  isStarted,
+}) {
   return (
-    <div>
+    <div className="flex flex-col">
       <h2 className="text-xl font-semibold text-center">Action Details</h2>
+      <div className="flex flex-col space-y-3">
+        <label className="font-medium">
+          Title:
+          <input
+            type="text"
+            className="border border-gray-400 rounded w-full p-1 mt-1 bg-white shadow-sm"
+            value={actionDetails.title}
+            onChange={(val) =>
+              setActionDetails((prev) => ({
+                ...prev,
+                title: val.target.value || "",
+              }))
+            }
+            placeholder="Enter title"
+          />
+        </label>
+
+        <label className="font-medium">
+          Description:
+          <MDEditor
+            className="w-full"
+            value={actionDetails.description}
+            onChange={(val) =>
+              setActionDetails((prev) => ({ ...prev, description: val || "" }))
+            }
+          />
+        </label>
+
+        <label className="font-medium">
+          Type:
+          <select className="border border-gray-400 rounded w-full p-1 mt-1  bg-white shadow-sm">
+            <option>This is a dropdown</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </label>
+      </div>
     </div>
   );
 }
