@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import InProgressActionDetails from "../views/InProgressActionDetails";
 import InProgressAdditionalActionDetails from "../views/InProgressActionAdditionalDetails";
 import Button from "../../Shared/components/Button";
+import { GENERIC_TYPE } from "../../Shared/components/ActionTypeConstants";
 
 function InProgressScreen() {
   const [actionDetails, setActionDetails] = useState({
@@ -10,7 +12,7 @@ function InProgressScreen() {
     description: "",
   });
 
-  const [actionType, setActionType] = useState("Generic");
+  const [actionType, setActionType] = useState(GENERIC_TYPE);
 
   const [additionalDetails, setAdditionalDetails] = useState([
     { key: "", value: "" },
@@ -22,6 +24,12 @@ function InProgressScreen() {
   const [time, setTime] = useState("00:00");
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
+  const location = useLocation();
+
+  useEffect(() => {
+    setActionType(location.state?.actionType ?? actionType);
+    console.log("ActionType set: ", actionType);
+  });
 
   return (
     <div className="flex flex-col items-center h-full">

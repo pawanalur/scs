@@ -2,6 +2,11 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../Shared/components/Button";
 import MobileMenuButton from "../components/MobileMenuButton";
+import {
+  SLEEP_TYPE,
+  EAT_TYPE,
+  EXERCISE_TYPE,
+} from "../../Shared/components/ActionTypeConstants";
 
 function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
   const navigate = useNavigate();
@@ -50,10 +55,12 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
           <div className="flex items-center gap-2">
             {renderBar("Mental Energy", mentalEnergy, 100)}
             <Button
-              label="Button M1"
+              label="Sleep"
               className={buttonClasses}
               styleVariant="black"
-              onClick={() => navigate("/home")}
+              onClick={() =>
+                navigate("/home", { state: { actionType: SLEEP_TYPE } })
+              }
             />
           </div>
 
@@ -69,16 +76,20 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
           <div className="flex items-center gap-2">
             {renderBar("Physical Energy", physicalEnergy, 2000)}
             <Button
-              label="Button P1"
+              label="Eat"
               className={buttonClasses}
               styleVariant="black"
-              onClick={() => navigate("/home")}
+              onClick={() =>
+                navigate("/home", { state: { actionType: EAT_TYPE } })
+              }
             />
             <Button
-              label="Button P2"
+              label="Exercise"
               className={buttonClasses}
               styleVariant="black"
-              onClick={() => navigate("/home")}
+              onClick={() =>
+                navigate("/home", { state: { actionType: EXERCISE_TYPE } })
+              }
             />
           </div>
 

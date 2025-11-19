@@ -1,4 +1,5 @@
 import MDEditor from "@uiw/react-md-editor";
+import { ACTION_TYPES } from "../../Shared/components/ActionTypeConstants";
 
 function InProgressActionDetails({
   actionDetails,
@@ -40,10 +41,18 @@ function InProgressActionDetails({
 
         <label className="font-medium">
           Type:
-          <select className="border border-gray-400 rounded w-full p-1 mt-1  bg-white shadow-sm">
-            <option>This is a dropdown</option>
-            <option>Option 1</option>
-            <option>Option 2</option>
+          <select
+            className="border border-gray-400 rounded w-full p-1 mt-1  bg-white shadow-sm"
+            value={actionType}
+            onChange={(e) => {
+              setActionType(e.target.value);
+            }}
+          >
+            {ACTION_TYPES.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
           </select>
         </label>
       </div>
