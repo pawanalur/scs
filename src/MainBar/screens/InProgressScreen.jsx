@@ -4,21 +4,17 @@ import { useLocation } from "react-router-dom";
 import InProgressActionDetails from "../views/InProgressActionDetails";
 import InProgressAdditionalActionDetails from "../views/InProgressActionAdditionalDetails";
 import Button from "../../Shared/components/Button";
-import { GENERIC_TYPE } from "../../Shared/components/ActionTypeConstants";
+import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressScreen() {
-  const [actionDetails, setActionDetails] = useState({
-    title: "",
-    description: "",
-  });
-
-  const [actionType, setActionType] = useState(GENERIC_TYPE);
-
-  const [additionalDetails, setAdditionalDetails] = useState([
-    { key: "", value: "" },
-    { key: "", value: "" },
-    { key: "", value: "" },
-  ]);
+  const {
+    actionDetails,
+    setActionDetails,
+    actionType,
+    setActionType,
+    additionalDetails,
+    setAdditionalDetails,
+  } = useCurrentAction();
 
   const isStarted = useState(false);
   const [time, setTime] = useState("00:00");
@@ -28,7 +24,6 @@ function InProgressScreen() {
 
   useEffect(() => {
     setActionType(location.state?.actionType ?? actionType);
-    console.log("ActionType set: ", actionType);
   });
 
   return (

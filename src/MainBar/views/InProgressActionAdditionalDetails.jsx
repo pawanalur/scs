@@ -15,9 +15,9 @@ function InProgressAdditionalActionDetails({
   };
 
   const handleChange = (index, field, value) => {
-    const updated = [...additionalDetails];
+    const updated = [...additonalActionDetails];
     updated[index][field] = value;
-    setAdditionalDetails(updated);
+    setAddionalActionDetails(updated);
   };
   return (
     <div className="flex flex-col items-center space-y-6 p-4 h-full">
