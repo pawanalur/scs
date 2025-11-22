@@ -1,13 +1,15 @@
 import MDEditor from "@uiw/react-md-editor";
 import { ACTION_TYPES } from "../../Shared/components/ActionTypeConstants";
+import { useCurrentAction } from "../components/CurrentActionProvider";
 
-function InProgressActionDetails({
-  actionDetails,
-  setActionDetails,
-  actionType,
-  setActionType,
-  isStarted,
-}) {
+function InProgressActionDetails() {
+  const {
+    actionDetails,
+    setActionDetails,
+    actionType,
+    setActionType,
+    isStarted,
+  } = useCurrentAction();
   return (
     <div className="flex flex-col">
       <h2 className="text-xl font-semibold text-center">Action Details</h2>

@@ -1,23 +1,28 @@
 import Button from "../../Shared/components/Button";
+import { useCurrentAction } from "../components/CurrentActionProvider";
 
-function InProgressAdditionalActionDetails({
-  additonalActionDetails,
-  setAddionalActionDetails,
-  onUpdateClick,
-  type,
-  isStarted,
-}) {
+function InProgressAdditionalActionDetails() {
+  const {
+    actionType,
+    setActionType,
+    actionAdditionalDetails,
+    setActionAdditionalDetails,
+    resetAction,
+    isStarted,
+    onUpdateClick,
+  } = useCurrentAction();
+
   //TODO: Change this logic to correctly work with planned logic
   const getDisabledState = (index) => {
-    if (type === "basic" && index > 0) return true;
-    if (type === "intermediate" && index > 1) return true;
+    if (actionType === "basic" && index > 0) return true;
+    if (actionType === "intermediate" && index > 1) return true;
     return false;
   };
 
   const handleChange = (index, field, value) => {
-    const updated = [...additonalActionDetails];
+    const updated = [...actionAdditionalDetails];
     updated[index][field] = value;
-    setAddionalActionDetails(updated);
+    setActionAdditionalDetails(updated);
   };
   return (
     <div className="flex flex-col items-center space-y-6 p-4 h-full">
@@ -29,15 +34,14 @@ function InProgressAdditionalActionDetails({
         {/* Right-aligned small "G" button */}
         <Button
           className={`ml-2 text-sm font-semibold rounded-full w-6 h-6 flex items-center justify-center  ${
-            type != "advanced" ? "visible" : "invisible"
+            actionType != "advanced" ? "visible" : "invisible"
           }`}
           label="G"
           styleVariant="black"
         />
       </div>
-
       <div className="flex flex-col items-center space-y-3 w-full">
-        {additonalActionDetails.map((item, index) => (
+        {actionAdditionalDetails.map((item, index) => (
           <div
             key={index}
             className="flex flex-row space-x-3 justify-center w-full"
@@ -61,8 +65,9 @@ function InProgressAdditionalActionDetails({
           </div>
         ))}
       </div>
+
       <Button
-        disabled={!isStarted}
+        disabled={!isStarted()}
         label="UPDATE"
         className="mt-auto"
         onClick={onUpdateClick}

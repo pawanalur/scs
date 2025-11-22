@@ -6,13 +6,15 @@ const CurrentActionContext = createContext();
 
 export function CurrentActionProvider({ children }) {
   const [actionType, setActionType] = useState(GENERIC_TYPE);
+  const [startAt, setStartAt] = useState(null);
+  const [endAt, setEndAt] = useState(null);
 
   const [actionDetails, setActionDetails] = useState({
     title: "",
     description: "",
   });
 
-  const [additionalDetails, setAdditionalDetails] = useState([
+  const [actionAdditionalDetails, setActionAdditionalDetails] = useState([
     { key: "", value: "" },
     { key: "", value: "" },
     { key: "", value: "" },
@@ -26,11 +28,31 @@ export function CurrentActionProvider({ children }) {
 
     setActionType(GENERIC_TYPE);
 
-    setAdditionalDetails([
+    setActionAdditionalDetails([
       { key: "", value: "" },
       { key: "", value: "" },
       { key: "", value: "" },
     ]);
+  }
+
+  function startAction() {
+    setStartAt(new Date().toISOString());
+  }
+
+  function endAction() {
+    setEndAt(new Date().toISOString());
+  }
+
+  function isStarted() {
+    return startAt !== null;
+  }
+
+  function isEnded() {
+    return endAt !== null;
+  }
+
+  function onUpdateClick() {
+    console.log("Update Clicked");
   }
 
   return (
@@ -40,9 +62,14 @@ export function CurrentActionProvider({ children }) {
         setActionType,
         actionDetails,
         setActionDetails,
-        additionalDetails,
-        setAdditionalDetails,
+        actionAdditionalDetails,
+        setActionAdditionalDetails,
         resetAction,
+        startAction,
+        endAction,
+        isStarted,
+        isEnded,
+        onUpdateClick,
       }}
     >
       {children}

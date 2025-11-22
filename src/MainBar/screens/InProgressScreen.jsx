@@ -9,16 +9,14 @@ import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressScreen() {
   const {
-    actionDetails,
-    setActionDetails,
     actionType,
     setActionType,
-    additionalDetails,
-    setAdditionalDetails,
     resetAction,
+    isStarted,
+    isEnded,
+    startAction,
+    endAction,
   } = useCurrentAction();
-
-  const [isStarted, setIsStarted] = useState(false);
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
   const location = useLocation();
@@ -34,10 +32,12 @@ function InProgressScreen() {
   }
 
   function OnStartClick() {
+    startAction();
     timerRef.current.startTimer();
   }
 
   function OnEndClick() {
+    endAction();
     timerRef.current.endTimer();
   }
 
@@ -54,25 +54,14 @@ function InProgressScreen() {
 
       <div className="flex flex-5 flex-col md:flex-row w-full justify-center items-center">
         <div className="w-full h-full flex-1 pb-2 md:pb-0 md:pr-3">
-          <InProgressActionDetails
-            actionDetails={actionDetails}
-            setActionDetails={setActionDetails}
-            actionType={actionType}
-            setActionType={setActionType}
-            isStarted={isStarted}
-          />
+          <InProgressActionDetails />
         </div>
 
         <div className="hidden md:block w-0.5 h-[75%] bg-gray-500"></div>
         <div className="block md:hidden h-0.5 w-[75%] bg-gray-500"></div>
 
         <div className="w-full h-full flex-1 pt-2 md:pt-0 md:pl-3">
-          <InProgressAdditionalActionDetails
-            additonalActionDetails={additionalDetails}
-            setAddionalActionDetails={setAdditionalDetails}
-            type={actionType}
-            isStarted={isStarted}
-          />
+          <InProgressAdditionalActionDetails />
         </div>
       </div>
 
@@ -103,12 +92,14 @@ function InProgressScreen() {
           styleVariant="green"
           className={buttonClasses}
           onClick={OnEndClick}
+          disabled={!isStarted()}
         />
         <Button
           label="Submit"
           styleVariant="green"
           className={buttonClasses}
           onClick={OnSubmitClick}
+          disabled={!isEnded()}
         />
       </div>
     </div>
