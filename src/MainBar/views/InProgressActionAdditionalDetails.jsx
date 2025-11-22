@@ -61,7 +61,12 @@ function InProgressAdditionalActionDetails({
           </div>
         ))}
       </div>
-      <Button disabled={!isStarted} label="UPDATE" className="mt-auto" />
+      <Button
+        disabled={!isStarted}
+        label="UPDATE"
+        className="mt-auto"
+        onClick={onUpdateClick}
+      />
     </div>
   );
 }

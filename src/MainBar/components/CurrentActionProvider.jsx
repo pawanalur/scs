@@ -18,6 +18,21 @@ export function CurrentActionProvider({ children }) {
     { key: "", value: "" },
   ]);
 
+  function resetAction() {
+    setActionDetails({
+      title: "",
+      description: "",
+    });
+
+    setActionType(GENERIC_TYPE);
+
+    setAdditionalDetails([
+      { key: "", value: "" },
+      { key: "", value: "" },
+      { key: "", value: "" },
+    ]);
+  }
+
   return (
     <CurrentActionContext.Provider
       value={{
@@ -27,6 +42,7 @@ export function CurrentActionProvider({ children }) {
         setActionDetails,
         additionalDetails,
         setAdditionalDetails,
+        resetAction,
       }}
     >
       {children}

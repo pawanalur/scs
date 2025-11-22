@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import InProgressActionDetails from "../views/InProgressActionDetails";
 import InProgressAdditionalActionDetails from "../views/InProgressActionAdditionalDetails";
+import Timer from "../components/Timer";
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
@@ -14,17 +15,36 @@ function InProgressScreen() {
     setActionType,
     additionalDetails,
     setAdditionalDetails,
+    resetAction,
   } = useCurrentAction();
 
-  const isStarted = useState(false);
-  const [time, setTime] = useState("00:00");
+  const [isStarted, setIsStarted] = useState(false);
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
   const location = useLocation();
+  const timerRef = useRef();
 
   useEffect(() => {
     setActionType(location.state?.actionType ?? actionType);
   });
+
+  function OnResetClick() {
+    resetAction();
+    timerRef.current.resetTimer();
+  }
+
+  function OnStartClick() {
+    timerRef.current.startTimer();
+  }
+
+  function OnEndClick() {
+    timerRef.current.endTimer();
+  }
+
+  function OnSubmitClick() {
+    //TODO: Add Submit Effect Here
+    OnResetClick();
+  }
 
   return (
     <div className="flex flex-col items-center h-full">
@@ -60,16 +80,36 @@ function InProgressScreen() {
         <div className="flex-1 border-t-2 border-gray-500"></div>
 
         <div className="mx-4 px-6 py-2 border-2 border-gray-500 rounded-lg bg-white/70 shadow-md text-2xl font-mono">
-          {time}
+          <Timer ref={timerRef} />
         </div>
 
         <div className="flex-1 border-t-2 border-gray-500"></div>
       </div>
       <div className="flex flex-1 flex-row w-full items-center justify-between">
-        <Button label="Start" styleVariant="green" className={buttonClasses} />
-        <Button label="Reset" styleVariant="red" className={buttonClasses} />
-        <Button label="End" styleVariant="green" className={buttonClasses} />
-        <Button label="Submit" styleVariant="green" className={buttonClasses} />
+        <Button
+          label="Start"
+          styleVariant="green"
+          className={buttonClasses}
+          onClick={OnStartClick}
+        />
+        <Button
+          label="Reset"
+          styleVariant="red"
+          className={buttonClasses}
+          onClick={OnResetClick}
+        />
+        <Button
+          label="End"
+          styleVariant="green"
+          className={buttonClasses}
+          onClick={OnEndClick}
+        />
+        <Button
+          label="Submit"
+          styleVariant="green"
+          className={buttonClasses}
+          onClick={OnSubmitClick}
+        />
       </div>
     </div>
   );
