@@ -8,36 +8,29 @@ import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressScreen() {
-  const {
-    actionType,
-    setActionType,
-    resetAction,
-    isStarted,
-    isEnded,
-    startAction,
-    endAction,
-  } = useCurrentAction();
+  const { lifecycle } = useCurrentAction();
+  const { updateActionType } = useCurrentAction().metadata;
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
   const location = useLocation();
   const timerRef = useRef();
 
   useEffect(() => {
-    setActionType(location.state?.actionType ?? actionType);
+    updateActionType(location.state?.actionType);
   });
 
   function OnResetClick() {
-    resetAction();
+    lifecycle.resetAction();
     timerRef.current.resetTimer();
   }
 
   function OnStartClick() {
-    startAction();
+    lifecycle.startAction();
     timerRef.current.startTimer();
   }
 
   function OnEndClick() {
-    endAction();
+    lifecycle.endAction();
     timerRef.current.endTimer();
   }
 
@@ -92,14 +85,14 @@ function InProgressScreen() {
           styleVariant="green"
           className={buttonClasses}
           onClick={OnEndClick}
-          disabled={!isStarted()}
+          disabled={!lifecycle.isStarted()}
         />
         <Button
           label="Submit"
           styleVariant="green"
           className={buttonClasses}
           onClick={OnSubmitClick}
-          disabled={!isEnded()}
+          disabled={!lifecycle.isEnded()}
         />
       </div>
     </div>

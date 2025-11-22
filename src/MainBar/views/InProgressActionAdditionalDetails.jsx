@@ -4,13 +4,11 @@ import { useCurrentAction } from "../components/CurrentActionProvider";
 function InProgressAdditionalActionDetails() {
   const {
     actionType,
-    setActionType,
     actionAdditionalDetails,
     setActionAdditionalDetails,
-    resetAction,
-    isStarted,
-    onUpdateClick,
-  } = useCurrentAction();
+    updateActionAdditionalDetails,
+  } = useCurrentAction().metadata;
+  const { isStarted } = useCurrentAction().lifecycle;
 
   //TODO: Change this logic to correctly work with planned logic
   const getDisabledState = (index) => {
@@ -70,7 +68,7 @@ function InProgressAdditionalActionDetails() {
         disabled={!isStarted()}
         label="UPDATE"
         className="mt-auto"
-        onClick={onUpdateClick}
+        onClick={updateActionAdditionalDetails}
       />
     </div>
   );

@@ -43,6 +43,10 @@ export function CurrentActionProvider({ children }) {
     setEndAt(new Date().toISOString());
   }
 
+  function updateActionType(newActionType) {
+    setActionType(newActionType ?? actionType);
+  }
+
   function isStarted() {
     return startAt !== null;
   }
@@ -51,25 +55,37 @@ export function CurrentActionProvider({ children }) {
     return endAt !== null;
   }
 
-  function onUpdateClick() {
+  function updateActionAdditionalDetails() {
     console.log("Update Clicked");
   }
 
+  const metadata = {
+    actionType,
+    updateActionType,
+    actionDetails,
+    setActionDetails,
+    actionAdditionalDetails,
+    setActionAdditionalDetails,
+    updateActionAdditionalDetails,
+  };
+
+  const lifecycle = {
+    startAction,
+    endAction,
+    resetAction,
+    isStarted,
+    isEnded,
+  };
+
+  const timing = {
+    startAt,
+  };
   return (
     <CurrentActionContext.Provider
       value={{
-        actionType,
-        setActionType,
-        actionDetails,
-        setActionDetails,
-        actionAdditionalDetails,
-        setActionAdditionalDetails,
-        resetAction,
-        startAction,
-        endAction,
-        isStarted,
-        isEnded,
-        onUpdateClick,
+        metadata,
+        lifecycle,
+        timing,
       }}
     >
       {children}

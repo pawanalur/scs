@@ -3,13 +3,8 @@ import { ACTION_TYPES } from "../../Shared/components/ActionTypeConstants";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressActionDetails() {
-  const {
-    actionDetails,
-    setActionDetails,
-    actionType,
-    setActionType,
-    isStarted,
-  } = useCurrentAction();
+  const { actionDetails, setActionDetails, actionType, updateActionType } =
+    useCurrentAction().metadata;
   return (
     <div className="flex flex-col">
       <h2 className="text-xl font-semibold text-center">Action Details</h2>
@@ -47,7 +42,7 @@ function InProgressActionDetails() {
             className="border border-gray-400 rounded w-full p-1 mt-1  bg-white shadow-sm"
             value={actionType}
             onChange={(e) => {
-              setActionType(e.target.value);
+              updateActionType(e.target.value);
             }}
           >
             {ACTION_TYPES.map((t) => (
