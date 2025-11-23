@@ -8,8 +8,8 @@ import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressScreen() {
-  const { lifecycle } = useCurrentAction();
-  const { updateActionType } = useCurrentAction().metadata;
+  const { lifecycle, metadata } = useCurrentAction();
+  const { updateActionType } = metadata;
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
   const location = useLocation();
@@ -17,7 +17,7 @@ function InProgressScreen() {
 
   useEffect(() => {
     updateActionType(location.state?.actionType);
-  });
+  }, [location.state?.actionType]);
 
   function OnResetClick() {
     lifecycle.resetAction();

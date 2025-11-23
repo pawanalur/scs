@@ -1,6 +1,9 @@
 import { createContext, useContext, useState } from "react";
 
-import { GENERIC_TYPE } from "../../Shared/components/ActionTypeConstants";
+import {
+  GENERIC_TYPE,
+  ACTION_TYPES,
+} from "../../Shared/components/ActionTypeConstants";
 
 const CurrentActionContext = createContext();
 
@@ -14,11 +17,10 @@ export function CurrentActionProvider({ children }) {
     description: "",
   });
 
-  const [actionAdditionalDetails, setActionAdditionalDetails] = useState([
-    { key: "", value: "" },
-    { key: "", value: "" },
-    { key: "", value: "" },
-  ]);
+  const [actionAdditionalDetails, setActionAdditionalDetails] = useState(
+    ACTION_TYPES.find((item) => item.id === actionType)
+      ?.actionAdditionalDetailDefault
+  );
 
   function resetAction() {
     setActionDetails({
@@ -28,11 +30,13 @@ export function CurrentActionProvider({ children }) {
 
     setActionType(GENERIC_TYPE);
 
-    setActionAdditionalDetails([
-      { key: "", value: "" },
-      { key: "", value: "" },
-      { key: "", value: "" },
-    ]);
+    setActionAdditionalDetails(
+      ACTION_TYPES.find((item) => item.id === actionType)
+        ?.actionAdditionalDetailDefault
+    );
+
+    setStartAt(null);
+    setEndAt(null);
   }
 
   function startAction() {
@@ -44,7 +48,15 @@ export function CurrentActionProvider({ children }) {
   }
 
   function updateActionType(newActionType) {
-    setActionType(newActionType ?? actionType);
+    if (!newActionType) return;
+
+    const matched = ACTION_TYPES.find((t) => t.id === newActionType);
+    if (!matched) return;
+
+    setActionType(matched.id);
+    setActionAdditionalDetails(
+      structuredClone(matched.actionAdditionalDetailDefault)
+    );
   }
 
   function isStarted() {

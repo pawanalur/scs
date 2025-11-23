@@ -10,13 +10,6 @@ function InProgressAdditionalActionDetails() {
   } = useCurrentAction().metadata;
   const { isStarted } = useCurrentAction().lifecycle;
 
-  //TODO: Change this logic to correctly work with planned logic
-  const getDisabledState = (index) => {
-    if (actionType === "basic" && index > 0) return true;
-    if (actionType === "intermediate" && index > 1) return true;
-    return false;
-  };
-
   const handleChange = (index, field, value) => {
     const updated = [...actionAdditionalDetails];
     updated[index][field] = value;
@@ -39,7 +32,7 @@ function InProgressAdditionalActionDetails() {
         />
       </div>
       <div className="flex flex-col items-center space-y-3 w-full">
-        {actionAdditionalDetails.map((item, index) => (
+        {actionAdditionalDetails?.map((item, index) => (
           <div
             key={index}
             className="flex flex-row space-x-3 justify-center w-full"
@@ -48,17 +41,22 @@ function InProgressAdditionalActionDetails() {
               type="text"
               placeholder={`Key ${index + 1}`}
               value={item.key}
-              disabled={getDisabledState(index)}
+              disabled={item.keyDisabled}
               onChange={(e) => handleChange(index, "key", e.target.value)}
-              className="bg-white/80 border border-gray-300 rounded-md px-3 py-1 disabled:opacity-60"
+              className={`bg-white/80 border-2 rounded-md px-3 py-1 disabled:opacity-60 ${
+                item.keyDisabled ? "border-gray-300" : "border-blue-500"
+              }`}
             />
+
             <input
               type="text"
               placeholder={`Value ${index + 1}`}
               value={item.value}
-              disabled={getDisabledState(index)}
+              disabled={item.valuedisabled}
               onChange={(e) => handleChange(index, "value", e.target.value)}
-              className="bg-white/80 border border-gray-300 rounded-md px-3 py-1 focus:outline-none disabled:opacity-60"
+              className={`bg-white/80 border-2 rounded-md px-3 py-1 disabled:opacity-60 ${
+                item.valuedisabled ? "border-gray-300" : "border-blue-500"
+              }`}
             />
           </div>
         ))}
