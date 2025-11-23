@@ -6,9 +6,9 @@
   - Organize CurrentActionProvider groupings: DONE.
   - Update ResetAction to also reset Start and End times: DONE
   - Update "Additional Values" to have specific Keys/Disabled status for specific Type: DONE
-  - Have the "Reset" button display "Discard" on isStarted.
-  - Add the hidden logic for button "G".
-  - Create sample JSON's for "Actions, Sleep, Eat, and Exercise" based on planned DB.
+  - Have the "Reset" button display "Discard" on isStarted: DONE
+  - Add the hidden logic for button "G": DONE
+  - Create sample JSON's for "Actions, Sleep, Eat, and Exercise" based on planned DB: DONE, Added to .gitignore as temporary.
   - Update Timer to start from "Current Time - Action Start At" instead of 00:00:00, and add logic to actually work as a timer.
   - Have the submit button work to save into these temporary JSON's, depending on ActionType. Add validators and warning labels.
   - Have the "Update" button work to save into these temporary JSON's. Add validators and warning labels.

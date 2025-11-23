@@ -75,7 +75,7 @@ function InProgressScreen() {
           onClick={OnStartClick}
         />
         <Button
-          label="Reset"
+          label={`${lifecycle.isStarted() ? "Discard" : "Reset"}`}
           styleVariant="red"
           className={buttonClasses}
           onClick={OnResetClick}

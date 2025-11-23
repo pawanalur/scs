@@ -1,5 +1,6 @@
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
+import { EAT_TYPE } from "../../Shared/components/ActionTypeConstants";
 
 function InProgressAdditionalActionDetails() {
   const {
@@ -25,7 +26,7 @@ function InProgressAdditionalActionDetails() {
         {/* Right-aligned small "G" button */}
         <Button
           className={`ml-2 text-sm font-semibold rounded-full w-6 h-6 flex items-center justify-center  ${
-            actionType != "advanced" ? "visible" : "invisible"
+            actionType === EAT_TYPE ? "visible" : "invisible"
           }`}
           label="G"
           styleVariant="black"
