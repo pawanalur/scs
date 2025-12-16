@@ -12,6 +12,7 @@
   - Create sample JSON's for "Actions, Sleep, Eat, and Exercise" based on planned DB: DONE, Added to .gitignore as temporary.
 
   - Update Timer to start from "Current Time - Action Start At" instead of 00:00:00, and add logic to actually work as a timer: DONE.
+  - Create a generic modal component: DONE.
   - Have the submit button work to save into these temporary JSON's, depending on ActionType. Add validators and warning labels.
   - Have the "Update" button work to save into these temporary JSON's. Add validators and warning labels. Move all inputs into it's own component.
   - Create a popup for the G button, and add a food description, and an optional image to generate Calories, Sugar, Protein.

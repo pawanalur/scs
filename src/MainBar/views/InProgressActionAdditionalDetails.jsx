@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 import { EAT_TYPE } from "../../Shared/components/ActionTypeConstants";
+import Modal from "../../Shared/components/Modal";
 
 function InProgressAdditionalActionDetails() {
   const {
@@ -11,6 +13,8 @@ function InProgressAdditionalActionDetails() {
   } = useCurrentAction().metadata;
   const { isStarted } = useCurrentAction().lifecycle;
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleChange = (index, field, value) => {
     const updated = [...actionAdditionalDetails];
     updated[index][field] = value;
@@ -18,6 +22,7 @@ function InProgressAdditionalActionDetails() {
   };
   return (
     <div className="flex flex-col items-center space-y-6 p-4 h-full">
+      <Modal isModalOpen={showModal} setIsModalOpen={setShowModal}></Modal>
       <div className="flex justify-between items-center w-full px-2">
         <h2 className="text-xl font-semibold text-center flex-1">
           Additional Values
@@ -30,6 +35,9 @@ function InProgressAdditionalActionDetails() {
           }`}
           label="G"
           styleVariant="black"
+          onClick={() => {
+            setShowModal(true);
+          }}
         />
       </div>
       <div className="flex flex-col items-center space-y-3 w-full">

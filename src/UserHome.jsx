@@ -23,6 +23,7 @@ function UserHome(props) {
 
   return (
     <CurrentActionProvider>
+      <div id="modal-hook"></div>
       <div
         className="relative h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImage})` }}
