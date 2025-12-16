@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
-import { EAT_TYPE } from "../../Shared/components/ActionTypeConstants";
-import Modal from "../../Shared/components/Modal";
+import {
+  EAT_TYPE,
+  EAT_CALORIE_KEY,
+  EAT_SUGAR_KEY,
+  EAT_PROTEIN_KEY,
+} from "../../Shared/components/ActionTypeConstants";
+import GenerateEatAdditionalDetailsModal from "../components/GenerateEatAdditionalDetailsModal";
 
 function InProgressAdditionalActionDetails() {
   const {
@@ -13,8 +18,19 @@ function InProgressAdditionalActionDetails() {
   } = useCurrentAction().metadata;
   const { isStarted } = useCurrentAction().lifecycle;
 
-  const [showModal, setShowModal] = useState(false);
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
 
+  function handleEatAdditionalDetailsGenerated(
+    calorieValue,
+    sugarValue,
+    proteinValue
+  ) {
+    if (actionType == EAT_TYPE) {
+      handleChange(EAT_CALORIE_KEY, "value", calorieValue);
+      handleChange(EAT_SUGAR_KEY, "value", sugarValue);
+      handleChange(EAT_PROTEIN_KEY, "value", proteinValue);
+    }
+  }
   const handleChange = (index, field, value) => {
     const updated = [...actionAdditionalDetails];
     updated[index][field] = value;
@@ -22,7 +38,11 @@ function InProgressAdditionalActionDetails() {
   };
   return (
     <div className="flex flex-col items-center space-y-6 p-4 h-full">
-      <Modal isModalOpen={showModal} setIsModalOpen={setShowModal}></Modal>
+      <GenerateEatAdditionalDetailsModal
+        isModalOpen={showGenerateModal}
+        setIsModalOpen={setShowGenerateModal}
+        onGenerate={handleEatAdditionalDetailsGenerated}
+      />
       <div className="flex justify-between items-center w-full px-2">
         <h2 className="text-xl font-semibold text-center flex-1">
           Additional Values
@@ -36,7 +56,7 @@ function InProgressAdditionalActionDetails() {
           label="G"
           styleVariant="black"
           onClick={() => {
-            setShowModal(true);
+            setShowGenerateModal(true);
           }}
         />
       </div>

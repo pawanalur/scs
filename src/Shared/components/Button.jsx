@@ -7,6 +7,7 @@ function Button({
   className = "",
   styleVariant = "brown", // "brown" | "red" | "green" | "black"
   disabled = false,
+  type = "button",
 }) {
   const handleMouseDown = (e) => {
     e.currentTarget.classList.add("pressed");
@@ -39,6 +40,7 @@ function Button({
 
   return (
     <button
+      type={type}
       disabled={disabled}
       onClick={(e) => !disabled && onClick(e)}
       onMouseDown={handleMouseDown}

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import InProgressActionDetails from "../views/InProgressActionDetails";
 import InProgressAdditionalActionDetails from "../views/InProgressActionAdditionalDetails";
 import ActionTimer from "../components/ActionTimer";
+import ConfirmDiscardModal from "../components/ConfirmDiscardModal";
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
@@ -14,6 +15,7 @@ function InProgressScreen() {
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
   const location = useLocation();
   const timerRef = useRef();
+  const [showConfirmDiscard, setShowConfirmDiscard] = useState(false);
 
   useEffect(() => {
     updateActionType(location.state?.actionType);
@@ -41,6 +43,11 @@ function InProgressScreen() {
 
   return (
     <div className="flex flex-col items-center h-full">
+      <ConfirmDiscardModal
+        isModalOpen={showConfirmDiscard}
+        setIsModalOpen={setShowConfirmDiscard}
+        onConfirm={OnResetClick}
+      />
       <div className="flex-1">
         <h2 className="text-xl font-bold underline text-center">In Progress</h2>
       </div>
@@ -78,7 +85,9 @@ function InProgressScreen() {
           label={`${lifecycle.isStarted() ? "Discard" : "Reset"}`}
           styleVariant="red"
           className={buttonClasses}
-          onClick={OnResetClick}
+          onClick={() =>
+            lifecycle.isStarted() ? setShowConfirmDiscard(true) : OnResetClick()
+          }
         />
         <Button
           label="End"

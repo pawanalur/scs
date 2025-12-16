@@ -41,3 +41,7 @@ export const GENERIC_TYPE = "generic";
 export const SLEEP_TYPE = "sleep";
 export const EAT_TYPE = "eat";
 export const EXERCISE_TYPE = "exercise";
+
+export const EAT_CALORIE_KEY = 0;
+export const EAT_SUGAR_KEY = 1;
+export const EAT_PROTEIN_KEY = 2;
