@@ -5,6 +5,7 @@ import { useCurrentAction } from "../components/CurrentActionProvider";
 function InProgressActionDetails() {
   const { actionDetails, setActionDetails, actionType, updateActionType } =
     useCurrentAction().metadata;
+  const { isStarted } = useCurrentAction().lifecycle;
   return (
     <div className="flex flex-col">
       <h2 className="text-xl font-semibold text-center">Action Details</h2>
@@ -13,7 +14,9 @@ function InProgressActionDetails() {
           Title:
           <input
             type="text"
-            className="border border-gray-400 rounded w-full p-1 mt-1 bg-white shadow-sm"
+            className={`border-2 rounded w-full p-1 mt-1 bg-white shadow-sm disabled:opacity-60 ${
+              isStarted() ? "border-gray-300" : "border-blue-500"
+            }`}
             value={actionDetails.title}
             onChange={(val) =>
               setActionDetails((prev) => ({
@@ -22,28 +25,37 @@ function InProgressActionDetails() {
               }))
             }
             placeholder="Enter title"
+            disabled={isStarted()}
           />
         </label>
 
         <label className="font-medium">
           Description:
-          <MDEditor
-            className="w-full"
-            value={actionDetails.description}
-            onChange={(val) =>
-              setActionDetails((prev) => ({ ...prev, description: val || "" }))
-            }
-          />
+          <div className="border-2 border-blue-500 rounded w-full p-1 mt-1  bg-white shadow-sm">
+            <MDEditor
+              className="w-full"
+              value={actionDetails.description}
+              onChange={(val) =>
+                setActionDetails((prev) => ({
+                  ...prev,
+                  description: val || "",
+                }))
+              }
+            />
+          </div>
         </label>
 
         <label className="font-medium">
           Type:
           <select
-            className="border border-gray-400 rounded w-full p-1 mt-1  bg-white shadow-sm"
+            className={`border-2 rounded w-full p-1 mt-1 bg-white shadow-sm disabled:opacity-60 ${
+              isStarted() ? "border-gray-300" : "border-blue-500"
+            }`}
             value={actionType}
             onChange={(e) => {
               updateActionType(e.target.value);
             }}
+            disabled={isStarted()}
           >
             {ACTION_TYPES.map((t) => (
               <option key={t.id} value={t.id}>
