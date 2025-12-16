@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import InProgressActionDetails from "../views/InProgressActionDetails";
 import InProgressAdditionalActionDetails from "../views/InProgressActionAdditionalDetails";
-import Timer from "../components/Timer";
+import ActionTimer from "../components/ActionTimer";
 import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
@@ -62,7 +62,7 @@ function InProgressScreen() {
         <div className="flex-1 border-t-2 border-gray-500"></div>
 
         <div className="mx-4 px-6 py-2 border-2 border-gray-500 rounded-lg bg-white/70 shadow-md text-2xl font-mono">
-          <Timer ref={timerRef} />
+          <ActionTimer ref={timerRef} />
         </div>
 
         <div className="flex-1 border-t-2 border-gray-500"></div>
