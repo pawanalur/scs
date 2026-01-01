@@ -1,0 +1,42 @@
+[
+  {
+    "actionId": 101,
+    "userId": 1,
+    "actionType": "Sleep",
+    "startAt": "2025-11-22T00:45:00Z",
+    "endAt": "2025-11-22T06:15:00Z",
+    "duration": 330,
+    "createdAt": "2025-11-22T06:16:00Z",
+    "isDiscarded": false
+  },
+  {
+    "actionId": 102,
+    "userId": 1,
+    "actionType": "Eat",
+    "startAt": "2025-11-22T08:10:00Z",
+    "endAt": "2025-11-22T08:25:00Z",
+    "duration": 15,
+    "createdAt": "2025-11-22T08:26:00Z",
+    "isDiscarded": false
+  },
+  {
+    "actionId": 103,
+    "userId": 1,
+    "actionType": "Exercise",
+    "startAt": "2025-11-22T18:00:00Z",
+    "endAt": "2025-11-22T18:45:00Z",
+    "duration": 45,
+    "createdAt": "2025-11-22T18:46:00Z",
+    "isDiscarded": false
+  },
+  {
+    "actionId": 104,
+    "userId": 1,
+    "actionType": "Generic",
+    "startAt": "2025-11-22T14:00:00Z",
+    "endAt": "2025-11-22T14:20:00Z",
+    "duration": 20,
+    "createdAt": "2025-11-22T14:21:00Z",
+    "isDiscarded": false
+  }
+]

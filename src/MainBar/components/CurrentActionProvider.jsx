@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { actionService } from "../../mock/services/action.service.mock";
 
 import {
   GENERIC_TYPE,
@@ -8,6 +9,7 @@ import {
 const CurrentActionContext = createContext();
 
 export function CurrentActionProvider({ children }) {
+  const [actionId, setActionId] = useState(null);
   const [actionType, setActionType] = useState(GENERIC_TYPE);
   const [startAt, setStartAt] = useState(null);
   const [endAt, setEndAt] = useState(null);
@@ -18,11 +20,14 @@ export function CurrentActionProvider({ children }) {
   });
 
   const [actionAdditionalDetails, setActionAdditionalDetails] = useState(
-    ACTION_TYPES.find((item) => item.id === actionType)
-      ?.actionAdditionalDetailDefault
+    structuredClone(
+      ACTION_TYPES.find((item) => item.id === actionType)
+        ?.actionAdditionalDetailDefault
+    )
   );
 
   function resetAction() {
+    setActionId(null);
     setActionDetails({
       title: "",
       description: "",
@@ -31,20 +36,14 @@ export function CurrentActionProvider({ children }) {
     setActionType(GENERIC_TYPE);
 
     setActionAdditionalDetails(
-      ACTION_TYPES.find((item) => item.id === actionType)
-        ?.actionAdditionalDetailDefault
+      structuredClone(
+        ACTION_TYPES.find((item) => item.id === GENERIC_TYPE)
+          ?.actionAdditionalDetailDefault
+      )
     );
 
     setStartAt(null);
     setEndAt(null);
-  }
-
-  function startAction() {
-    setStartAt(new Date().toISOString());
-  }
-
-  function endAction() {
-    setEndAt(new Date().toISOString());
   }
 
   function updateActionType(newActionType) {
@@ -59,6 +58,60 @@ export function CurrentActionProvider({ children }) {
     );
   }
 
+  function handleAdditionalDetailsChange(index, field, value) {
+    const updated = [...actionAdditionalDetails];
+    updated[index][field] = value;
+    setActionAdditionalDetails(updated);
+  }
+
+  async function startAction(userID) {
+    if (actionId) return;
+
+    const action = await actionService.CreateAction({
+      userId: userID,
+      actionType,
+      actionTitle: actionDetails.title,
+      actionDescription: actionDetails.description,
+      startAt: new Date().toISOString(),
+    });
+    setActionId(action.actionId);
+    setStartAt(action.startAt);
+  }
+
+  async function resetOrDiscardAction() {
+    if (!isStarted()) resetAction();
+    if (!actionId) return;
+
+    await actionService.DiscardAction(actionId);
+    resetAction();
+    setActionId(null);
+  }
+
+  async function updateActionAdditionalDetails() {
+    if (!actionId) return;
+
+    await actionService.UpdateActionDetails(actionId, {
+      description: actionDetails.description,
+      additionalDetailsArray: actionAdditionalDetails,
+    });
+  }
+
+  function endAction() {
+    setEndAt(new Date().toISOString());
+  }
+
+  async function submitAction() {
+    if (!actionId) return;
+
+    await actionService.SubmitAction(actionId, {
+      endAt,
+      description: actionDetails.description,
+      actionAdditionalDetails,
+    });
+
+    resetAction();
+  }
+
   function isStarted() {
     return startAt !== null;
   }
@@ -67,24 +120,21 @@ export function CurrentActionProvider({ children }) {
     return endAt !== null;
   }
 
-  function updateActionAdditionalDetails() {
-    console.log("Update Clicked");
-  }
-
   const metadata = {
     actionType,
     updateActionType,
     actionDetails,
     setActionDetails,
     actionAdditionalDetails,
-    setActionAdditionalDetails,
+    handleAdditionalDetailsChange,
     updateActionAdditionalDetails,
   };
 
   const lifecycle = {
     startAction,
     endAction,
-    resetAction,
+    resetOrDiscardAction,
+    submitAction,
     isStarted,
     isEnded,
   };

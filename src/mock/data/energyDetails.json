@@ -1,0 +1,20 @@
+[
+  {
+    "energyDetailId": 1,
+    "energyAlertId": 1,
+    "physicalEnergy": 72,
+    "mentalEnergy": 65,
+    "lastUpdated": "2025-11-22T10:15:30Z",
+    "physicalDrainPerMin": 0.4,
+    "mentalDrainPerMin": 0.2
+  },
+  {
+    "energyDetailId": 2,
+    "energyAlertId": 2,
+    "physicalEnergy": 48,
+    "mentalEnergy": 52,
+    "lastUpdated": "2025-11-22T17:40:10Z",
+    "physicalDrainPerMin": 0.6,
+    "mentalDrainPerMin": 0.5
+  }
+]

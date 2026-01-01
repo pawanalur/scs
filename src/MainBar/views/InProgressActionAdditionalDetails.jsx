@@ -13,7 +13,7 @@ function InProgressAdditionalActionDetails() {
   const {
     actionType,
     actionAdditionalDetails,
-    setActionAdditionalDetails,
+    handleAdditionalDetailsChange,
     updateActionAdditionalDetails,
   } = useCurrentAction().metadata;
   const { isStarted } = useCurrentAction().lifecycle;
@@ -26,16 +26,11 @@ function InProgressAdditionalActionDetails() {
     proteinValue
   ) {
     if (actionType == EAT_TYPE) {
-      handleChange(EAT_CALORIE_KEY, "value", calorieValue);
-      handleChange(EAT_SUGAR_KEY, "value", sugarValue);
-      handleChange(EAT_PROTEIN_KEY, "value", proteinValue);
+      handleAdditionalDetailsChange(EAT_CALORIE_KEY, "value", calorieValue);
+      handleAdditionalDetailsChange(EAT_SUGAR_KEY, "value", sugarValue);
+      handleAdditionalDetailsChange(EAT_PROTEIN_KEY, "value", proteinValue);
     }
   }
-  const handleChange = (index, field, value) => {
-    const updated = [...actionAdditionalDetails];
-    updated[index][field] = value;
-    setActionAdditionalDetails(updated);
-  };
   return (
     <div className="flex flex-col items-center space-y-6 p-4 h-full">
       <GenerateEatAdditionalDetailsModal
@@ -71,7 +66,9 @@ function InProgressAdditionalActionDetails() {
               placeholder={`Key ${index + 1}`}
               value={item.key}
               disabled={item.keyDisabled}
-              onChange={(e) => handleChange(index, "key", e.target.value)}
+              onChange={(e) =>
+                handleAdditionalDetailsChange(index, "key", e.target.value)
+              }
               className={`bg-white/80 border-2 rounded-md px-3 py-1 disabled:opacity-60 ${
                 item.keyDisabled ? "border-gray-300" : "border-blue-500"
               }`}
@@ -82,7 +79,9 @@ function InProgressAdditionalActionDetails() {
               placeholder={`Value ${index + 1}`}
               value={item.value}
               disabled={item.valuedisabled}
-              onChange={(e) => handleChange(index, "value", e.target.value)}
+              onChange={(e) =>
+                handleAdditionalDetailsChange(index, "value", e.target.value)
+              }
               className={`bg-white/80 border-2 rounded-md px-3 py-1 disabled:opacity-60 ${
                 item.valuedisabled ? "border-gray-300" : "border-blue-500"
               }`}

@@ -16,18 +16,19 @@ function InProgressScreen() {
   const location = useLocation();
   const timerRef = useRef();
   const [showConfirmDiscard, setShowConfirmDiscard] = useState(false);
+  const TEMP_USER_ID = 1;
 
   useEffect(() => {
     updateActionType(location.state?.actionType);
   }, [location.state?.actionType]);
 
   function OnResetClick() {
-    lifecycle.resetAction();
+    lifecycle.resetOrDiscardAction();
     timerRef.current.resetTimer();
   }
 
   function OnStartClick() {
-    lifecycle.startAction();
+    lifecycle.startAction(TEMP_USER_ID);
     timerRef.current.startTimer();
   }
 
@@ -37,8 +38,8 @@ function InProgressScreen() {
   }
 
   function OnSubmitClick() {
-    //TODO: Add Submit Effect Here
-    OnResetClick();
+    lifecycle.submitAction();
+    timerRef.current.resetTimer();
   }
 
   return (

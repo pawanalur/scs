@@ -1,0 +1,50 @@
+[
+  {
+    "actionDetailId": 5001,
+    "actionId": 101,
+    "title": "Night Sleep",
+    "description": "Slept well with minimal interruptions.",
+    "additionalKey1": "",
+    "additionalValue1": "",
+    "additionalKey2": "",
+    "additionalValue2": "",
+    "additionalKey3": "",
+    "additionalValue3": ""
+  },
+  {
+    "actionDetailId": 5002,
+    "actionId": 102,
+    "title": "Breakfast",
+    "description": "Had cornflakes and nuts.",
+    "additionalKey1": "Calories",
+    "additionalValue1": "220",
+    "additionalKey2": "Sugar(g)",
+    "additionalValue2": "8",
+    "additionalKey3": "Protein(g)",
+    "additionalValue3": "6"
+  },
+  {
+    "actionDetailId": 5003,
+    "actionId": 103,
+    "title": "Evening Workout",
+    "description": "Light jog outside.",
+    "additionalKey1": "Calories",
+    "additionalValue1": "180",
+    "additionalKey2": "Type",
+    "additionalValue2": "Jogging",
+    "additionalKey3": "",
+    "additionalValue3": ""
+  },
+  {
+    "actionDetailId": 5004,
+    "actionId": 104,
+    "title": "Reading",
+    "description": "Read a few chapters of a book.",
+    "additionalKey1": "Location",
+    "additionalValue1": "Home",
+    "additionalKey2": "Mood",
+    "additionalValue2": "Relaxed",
+    "additionalKey3": "Duration Note",
+    "additionalValue3": "20 minutes of focused reading"
+  }
+]
