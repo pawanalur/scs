@@ -1,28 +1,38 @@
-## NEXT STEPS
+# NEXT STEPS
 
-- The next step is to build the generic action layout in the "In Progress" screen.
+## Version: Demo
 
-  - Separate the timer into it's own component, and have "Start" and "" work on the timer: DONE. Created a timer component, and Start and End display hardcoded values.
-  - Add the disabled logic for "End" and "Submit": Done. "End" and "Submit" now have correct disabled set.
-  - Organize CurrentActionProvider groupings: DONE.
-  - Update ResetAction to also reset Start and End times: DONE
-  - Update "Additional Values" to have specific Keys/Disabled status for specific Type: DONE
-  - Have the "Reset" button display "Discard" on isStarted: DONE
-  - Add the hidden logic for button "G": DONE
-  - Create sample JSON's for "Actions, Sleep, Eat, and Exercise" based on planned DB: DONE, Added to .gitignore as temporary.
+This is the initial version that is intended to be "Pure" frontend. The following features are to be implemented:
 
-  - Update Timer to start from "Current Time - Action Start At" instead of 00:00:00, and add logic to actually work as a timer: DONE.
-  - Create a generic modal component: DONE.
-  - Have the submit button work to save into these temporary JSON's, depending on ActionType. Add validators and warning labels: PARTIALLY DONE.
-  - Have the "Update" button work to save into these temporary JSON's. Add validators and warning labels. Move all inputs into it's own component: PARTIALLY DONE
-    - NEXT STEPS: First, get all of Create, Update, Discard, Submit to work properly with the service layer - DONE.
-    - Then, refactor the form/input to have validation looking at the videos.
-  - Create a popup for the G button, and add a food description, and an optional image to generate Calories, Sugar, Protein: DONE.
-  - Create userProvider and UserService. Temporarily hardcode login user via JSON + Hardcoded UserID.
-  - Verify currentAction is fetched when page loads.
-  - Create per min energy update functions.
+- All energy calculations should work properly
+  - Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
+  - Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these.
+  - Every sleep, mental energy should rise - Whenever I submit a sleep action, I should update mental energy (connect the 2 providers, and have a userService updateEnergy function)
+  - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should upddate physical energy.
+- Display only “Action”, and “Energy Change” in the logs - Create a very simplistic UI for "Physical and Mental energy logs.
+- Create and Display "Action Log" - Create a simple "Action Log" button that displays just a list of names with start and end timestamps.
+- Deploy demo to the cloud.
 
-- Update color logic for bars.
-- Create the "Phyical Energy Log"
-- Create the "Mental Energy Log"
-- Create the Login and Signup pages.
+## Version: Fullstack Demo
+
+I will build the backend for this application. The following features will be implemented:
+
+- Create proper User Login and Signup pages.
+- Create Logout, and verify that sudden closes work as expected - The system should check that currentAction is fetched after logout.
+- Instead of hardcoding, call Claude/OpenAI API for Calorie/Protein/Sugar value calculation.
+- Integrate the whole project with the backend.
+- Establish a basic CI/CD pipeline.
+
+## Version: 1.0
+
+This will be the first version to be considered properly "Complete".
+
+- Change the logs to have toggles to display information - Create a toggle template and use it for each individual log entry.
+- Add validation for all fields:
+  - Then, refactor the form/input to have validation
+    - Create a separate input component for validation/specific UI (Videos 60-62).
+    - Create a form validation, and add this check to “Submit” (Videos 63-64)
+      Custom useForm hook?
+    - Loading Screen when we wait for HTTP requests.
+  - Use <form> for login and submit. Same page, with a mode switch (Video 70/71)
+- Ensure 100% Unit Test coverage.
