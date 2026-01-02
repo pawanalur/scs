@@ -1,28 +1,101 @@
-## NEXT STEPS
+## Overview
 
-- The next step is to build the generic action layout in the "In Progress" screen.
+Self-Control Shop is a frontend-first React application used to prototype and validate
+UI, state management, and gameplay mechanics before backend integration. The project intentionally uses mock services and local JSON data to allow rapid
+iteration on the UI and application logic without depending on a live API.
 
-  - Separate the timer into it's own component, and have "Start" and "" work on the timer: DONE. Created a timer component, and Start and End display hardcoded values.
-  - Add the disabled logic for "End" and "Submit": Done. "End" and "Submit" now have correct disabled set.
-  - Organize CurrentActionProvider groupings: DONE.
-  - Update ResetAction to also reset Start and End times: DONE
-  - Update "Additional Values" to have specific Keys/Disabled status for specific Type: DONE
-  - Have the "Reset" button display "Discard" on isStarted: DONE
-  - Add the hidden logic for button "G": DONE
-  - Create sample JSON's for "Actions, Sleep, Eat, and Exercise" based on planned DB: DONE, Added to .gitignore as temporary.
+Tech Stack:
 
-  - Update Timer to start from "Current Time - Action Start At" instead of 00:00:00, and add logic to actually work as a timer: DONE.
-  - Create a generic modal component: DONE.
-  - Have the submit button work to save into these temporary JSON's, depending on ActionType. Add validators and warning labels: PARTIALLY DONE.
-  - Have the "Update" button work to save into these temporary JSON's. Add validators and warning labels. Move all inputs into it's own component: PARTIALLY DONE
-    - NEXT STEPS: First, get all of Create, Update, Discard, Submit to work properly with the service layer - DONE.
-    - Then, refactor the form/input to have validation looking at the videos.
-  - Create a popup for the G button, and add a food description, and an optional image to generate Calories, Sugar, Protein: DONE.
-  - Create userProvider and UserService. Temporarily hardcode login user via JSON + Hardcoded UserID.
-  - Verify currentAction is fetched when page loads.
-  - Create per min energy update functions.
+- React
+- Vite
+- JavaScript (ES6+)
+- React Context for global state
+- Mock services (no backend)
 
-- Update color logic for bars.
-- Create the "Phyical Energy Log"
-- Create the "Mental Energy Log"
-- Create the Login and Signup pages.
+## Prerequisites
+
+- Node.js (v18+ recommended)
+- npm (v9+)
+
+## Getting Started
+
+1. Clone the repository
+
+   ```bash
+   git clone <repo-url>
+   cd self-control-shop
+
+   ```
+
+2. Install Dependencies
+   npm install
+
+3. Start the development server
+   npm run dev
+
+4. By default, the app runs at
+   http://localhost:5173
+
+## Authentication & Mock Data
+
+This project does not use a real backend.
+Instead, authentication and user data are simulated using mock services and local JSON
+files.
+
+How login works
+
+- The login flow calls a mock login service
+- The service reads data from local JSON files
+- On successful login, the following are initialized:
+- User identity
+- Physical & mental energy values
+- Energy alert thresholds (warnings & errors)
+- There is no password validation or real authentication logic.
+
+## Session & State Model
+
+Session lifecycle
+
+- Login initializes a new user session
+- Logout clears all session data
+- Refreshing the page resets the session
+- Energy Alerts
+- Energy alert thresholds are loaded once at login
+- They are treated as read-only session configuration
+- Alerts do not change during an active session
+- Alerts are cleared on logout
+- This mirrors how configuration data would typically be handled in a real backend-driven
+  application.
+
+## UI State
+
+UI-specific state such as:
+
+- Active actions
+- Timers
+- Modals
+
+In-progress tasks are managed using React Context and local component state.
+
+## Current Limitations
+
+1. No persistent backend
+2. No real authentication or authorization
+3. Data resets on page refresh
+4. Mock data is shared across sessions
+5. These limitations are intentional for frontend prototyping.
+
+## Future Improvements
+
+1. Replace mock services with real API integration
+2. Persist user sessions
+3. Improved authentication flow
+
+## Notes for Reviewers
+
+This project is designed to demonstrate:
+
+- Clean React state management
+- Intentional session modeling
+- Separation of UI logic from data sources
+- Scalable frontend architecture suitable for backend integration
