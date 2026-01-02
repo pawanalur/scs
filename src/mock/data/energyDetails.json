@@ -1,6 +1,7 @@
 [
   {
     "energyDetailId": 1,
+    "userId": 1,
     "energyAlertId": 1,
     "physicalEnergy": 72,
     "mentalEnergy": 65,
@@ -10,6 +11,7 @@
   },
   {
     "energyDetailId": 2,
+    "userId": 2,
     "energyAlertId": 2,
     "physicalEnergy": 48,
     "mentalEnergy": 52,

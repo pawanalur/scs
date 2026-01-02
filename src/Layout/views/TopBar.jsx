@@ -2,14 +2,20 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../Shared/components/Button";
 import MobileMenuButton from "../components/MobileMenuButton";
+import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
 import {
   SLEEP_TYPE,
   EAT_TYPE,
   EXERCISE_TYPE,
 } from "../../Shared/components/ActionTypeConstants";
 
-function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
+function TopBar() {
   const navigate = useNavigate();
+
+  const { currentUser } = useCurrentUser();
+  const { userName, mentalEnergy, physicalEnergy, profileIcon } = currentUser;
+  console.log("Current User: ", currentUser);
+  console.log("Full Name: ", userName);
 
   // Helper function to choose color TODO CHANGE TO CORRECT FORMULA
   const getEnergyColor = (value, max = 1000) => {
@@ -43,13 +49,13 @@ function TopBar({ fullName, mentalEnergy, physicalEnergy, profileIcon }) {
       <div className="shrink-0">
         <img
           src={profileIcon}
-          alt={fullName}
+          alt={userName}
           className="w-16 h-16 rounded-md border-2 border-white shadow-md"
         />
       </div>
 
       <div className="flex flex-col gap-2 grow">
-        <h3 className="text-lg font-semibold mb-2">Name: {fullName}</h3>
+        <h3 className="text-lg font-semibold mb-2">Name: {userName}</h3>
 
         <div className="flex justify-between">
           <div className="flex items-center gap-2">

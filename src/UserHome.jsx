@@ -4,23 +4,10 @@ import TopBar from "./Layout/views/TopBar";
 import Sidebar from "./Layout/views/SideBar";
 import { CurrentActionProvider } from "./MainBar/components/CurrentActionProvider";
 
-import reactLogo from "./assets/react.svg";
 import backgroundImage from "./assets/UserHome_Background.png";
 import "./UserHome.css";
 
 function UserHome(props) {
-  const GUEST = {
-    id: "guest",
-    fullName: "Guest User",
-    mentalEnergy: 100,
-    physicalEnergy: 1000,
-    profileIcon: reactLogo,
-    inProgressTask: 10,
-    inProgressTaskType: "Sleep",
-  };
-
-  const currentUser = props.currentUser || GUEST;
-
   return (
     <CurrentActionProvider>
       <div id="modal-hook"></div>
@@ -33,13 +20,7 @@ function UserHome(props) {
         <div className="relative w-full h-full p-[2%] flex flex-col gap-[2%]">
           {/* Top box */}
           <div className="h-[15%] bg-white/90 backdrop-blur-sm rounded-xl p-3 py-3 shadow-lg item-center">
-            <TopBar
-              key={currentUser.id}
-              fullName={currentUser.fullName}
-              mentalEnergy={currentUser.mentalEnergy}
-              physicalEnergy={currentUser.physicalEnergy}
-              profileIcon={currentUser.profileIcon}
-            />
+            <TopBar />
           </div>
 
           {/* Bottom row */}
