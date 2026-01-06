@@ -4,11 +4,6 @@
 
 This is the initial version that is intended to be "Pure" frontend. The following features are to be implemented:
 
-- All energy calculations should work properly:
-
-  - Every sleep, mental energy should rise - Whenever I submit a sleep action, I should update mental energy (connect the 2 providers, and have a userService updateEnergy function)
-  - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should update physical energy.
-
 - Create Logout, ensure proper NULL values set.
 - Display only “Action”, and “Energy Change” in the logs - Create a very simplistic UI for "Physical and Mental energy logs.
 - Create and Display "Action Log" - Create a simple "Action Log" button that displays just a list of names with start and end timestamps.
