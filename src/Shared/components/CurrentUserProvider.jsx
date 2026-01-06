@@ -6,7 +6,7 @@ import reactLogo from "../../assets/react.svg";
 import {
   PHYSICAL_LABEL,
   MENTAL_LABEL,
-} from "./Constants/EnergyDetailConstants";
+} from "./Constants/EnergyDetailConstants.jsx";
 
 const CurrentUserContext = createContext();
 
@@ -37,6 +37,14 @@ export function CurrentUserProvider({ children }) {
     };
   }
 
+  function refreshUserEnergy() {
+    const updated = userService.updateEnergy();
+    if (!updated) return;
+
+    setPhysicalEnergy(updated.physicalEnergy);
+    setMentalEnergy(updated.mentalEnergy);
+  }
+
   async function userLogin(userId) {
     const currUserDetails = await userService.login(1);
     setUserId(currUserDetails.userId);
@@ -56,7 +64,7 @@ export function CurrentUserProvider({ children }) {
 
       setPhysicalEnergy(updated.physicalEnergy);
       setMentalEnergy(updated.mentalEnergy);
-    }, 60000);
+    }, 10000);
   }
 
   const userDetails = {
@@ -71,6 +79,7 @@ export function CurrentUserProvider({ children }) {
     <CurrentUserContext.Provider
       value={{
         userLogin,
+        refreshUserEnergy,
         energyAlerts: energyAlertsRef.current,
         currentUser: userDetails,
       }}

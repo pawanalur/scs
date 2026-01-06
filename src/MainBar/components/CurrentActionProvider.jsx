@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { actionService } from "../../mock/services/action.service.mock";
 
+import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
 import {
   GENERIC_TYPE,
   ACTION_TYPES,
@@ -25,6 +26,8 @@ export function CurrentActionProvider({ children }) {
         ?.actionAdditionalDetailDefault
     )
   );
+
+  const { refreshUserEnergy } = useCurrentUser();
 
   function resetAction() {
     setActionId(null);
@@ -109,6 +112,7 @@ export function CurrentActionProvider({ children }) {
       actionAdditionalDetails,
     });
 
+    refreshUserEnergy();
     resetAction();
   }
 

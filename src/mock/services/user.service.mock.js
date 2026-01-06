@@ -2,6 +2,13 @@ import initialEnergyDetails from "../data/energyDetails.json";
 import initialUserDetails from "../data/userDetails.json";
 import initialEnergyAlerts from "../data/energyAlerts.json";
 
+import {
+  PHYSICAL_LABEL,
+  MENTAL_LABEL,
+  MAX_PHYSICAL_VAL,
+  MAX_MENTAL_VAL,
+} from "../../Shared/components/Constants/EnergyDetailConstants";
+
 let energyDetails = structuredClone(initialEnergyDetails);
 let userDetails = structuredClone(initialUserDetails);
 let energyAlerts = structuredClone(initialEnergyAlerts);
@@ -69,6 +76,39 @@ function updateEnergy() {
   };
 }
 
+function updateSpecificEnergyWithValue(energyType, addedValue) {
+  if (!currentEnergyState.userId) return null;
+
+  let newPhysicalEnergy = currentEnergyState.physicalEnergy;
+  let newMentalEnergy = currentEnergyState.mentalEnergy;
+  let energyToReturn = currentEnergyState.physicalEnergy;
+  if (energyType === PHYSICAL_LABEL) {
+    newPhysicalEnergy = newPhysicalEnergy + addedValue;
+    currentEnergyState.physicalEnergy = Math.max(
+      0,
+      Math.min(newPhysicalEnergy, MAX_PHYSICAL_VAL)
+    );
+    energyToReturn = currentEnergyState.physicalEnergy;
+  } else if (energyType === MENTAL_LABEL) {
+    newMentalEnergy = newMentalEnergy + addedValue;
+    currentEnergyState.mentalEnergy = Math.max(
+      0,
+      Math.min(newMentalEnergy, MAX_MENTAL_VAL)
+    );
+    energyToReturn = currentEnergyState.mentalEnergy;
+  } else return null;
+
+  const energyDetail = energyDetails.find(
+    (e) => e.userId === currentEnergyState.userId
+  );
+  if (energyDetail) {
+    energyDetail.physicalEnergy = newPhysicalEnergy;
+    energyDetail.mentalEnergy = newMentalEnergy;
+  }
+
+  return energyToReturn;
+}
+
 async function login(userId = 1) {
   const user = userDetails.find((i) => i.id === userId);
   if (!user) throw new error("User not found!");
@@ -111,4 +151,5 @@ async function login(userId = 1) {
 export const userService = {
   login,
   updateEnergy,
+  updateSpecificEnergyWithValue,
 };

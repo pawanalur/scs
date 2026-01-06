@@ -3,7 +3,18 @@ import initialActionDetails from "../data/actionDetails.json";
 import initialEatDetails from "../data/eatDetails.json";
 import initialExerciseDetails from "../data/exerciseDetails.json";
 import initialSleepDetails from "../data/sleepDetails.json";
-import { EAT_TYPE, SLEEP_TYPE, EXERCISE_TYPE } from "../../Shared/components/Constants/ActionTypeConstants";
+
+import { userService } from "./user.service.mock";
+import {
+  EAT_TYPE,
+  SLEEP_TYPE,
+  EXERCISE_TYPE,
+} from "../../Shared/components/Constants/ActionTypeConstants";
+import {
+  MENTAL_LABEL,
+  PHYSICAL_LABEL,
+  SLEEP_ENERGY_GAIN,
+} from "../../Shared/components/Constants/EnergyDetailConstants";
 
 /**
  * In-memory "DB"
@@ -19,17 +30,16 @@ let sleepDetails = structuredClone(initialSleepDetails);
  * Helpers
  */
 function generateId(list, key) {
-  return Math.max(0, ...list.map(i => i[key])) + 1;
+  return Math.max(0, ...list.map((i) => i[key])) + 1;
 }
 
 function getDetailsByActionId(actionId) {
-  return actionDetails.find(d => d.actionId === actionId) || null;
+  return actionDetails.find((d) => d.actionId === actionId) || null;
 }
 
 function mapAdditionalDetailsToDb(additionalDetailsArray) {
   const result = {};
 
-  console.log(additionalDetailsArray)
   additionalDetailsArray.forEach((item, index) => {
     const i = index + 1;
     result[`additionalKey${i}`] = item.key || "";
@@ -73,7 +83,13 @@ function buildSleepDetails(detailsMap) {
   };
 }
 
-async function CreateAction({ userId, actionType, actionTitle, actionDescription, startAt }) {
+async function CreateAction({
+  userId,
+  actionType,
+  actionTitle,
+  actionDescription,
+  startAt,
+}) {
   const actionId = generateId(actions, "actionId");
 
   const newAction = {
@@ -102,14 +118,14 @@ async function CreateAction({ userId, actionType, actionTitle, actionDescription
     additionalValue3: "",
   });
 
-  console.log("New Action: ", newAction)
-  console.log("Updated ActionDetails: ", actionDetails)
-
   return structuredClone(newAction);
 }
 
-async function UpdateActionDetails(actionId, {description, additionalDetailsArray}) {
-  const index = actionDetails.findIndex(d => d.actionId === actionId);
+async function UpdateActionDetails(
+  actionId,
+  { description, additionalDetailsArray }
+) {
+  const index = actionDetails.findIndex((d) => d.actionId === actionId);
   if (index === -1) throw new Error("Action details not found");
 
   actionDetails[index] = {
@@ -118,34 +134,29 @@ async function UpdateActionDetails(actionId, {description, additionalDetailsArra
     ...mapAdditionalDetailsToDb(additionalDetailsArray),
   };
 
-  console.log("New ActionDetails: ", actionDetails[index])
   return structuredClone(actionDetails[index]);
 }
 
 async function DiscardAction(actionId) {
-  const action = actions.find(a => a.actionId === actionId);
+  const action = actions.find((a) => a.actionId === actionId);
   if (!action) throw new Error("Action not found");
 
   action.isDiscarded = true;
   action.endAt = null;
   action.duration = null;
 
-  console.log("Updated Action: ", action)
-
   return structuredClone(action);
 }
 
-async function SubmitAction(actionId, {
-  endAt,
-  description,
-  actionAdditionalDetails,
-}) {
-  const action = actions.find(a => a.actionId === actionId);
+async function SubmitAction(
+  actionId,
+  { endAt, description, actionAdditionalDetails }
+) {
+  const action = actions.find((a) => a.actionId === actionId);
   if (!action) throw new Error("Action not found");
 
   action.endAt = endAt;
-  action.duration =
-    (new Date(endAt) - new Date(action.startAt)) / 60000;
+  action.duration = (new Date(endAt) - new Date(action.startAt)) / 60000;
 
   await UpdateActionDetails(actionId, {
     description,
@@ -153,72 +164,79 @@ async function SubmitAction(actionId, {
   });
 
   const detailsMap = normalizeAdditionalDetails(actionAdditionalDetails);
-  console.log("Action Type: ", action.actionType)
 
   if (action.actionType === EAT_TYPE) {
+    const eatDetailResult = buildEatDetails(detailsMap);
+    const { calorieConsumed } = eatDetailResult;
+
     eatDetails.push({
       eatId: generateId(eatDetails, "eatId"),
       actionId,
-      ...buildEatDetails(detailsMap),
+      ...eatDetailResult,
     });
-    console.log("Eating...", eatDetails)
+    userService.updateSpecificEnergyWithValue(PHYSICAL_LABEL, calorieConsumed);
   }
 
   if (action.actionType === EXERCISE_TYPE) {
+    const exerciseDetailResult = buildExerciseDetails(detailsMap);
+    const { calorieBurnt } = exerciseDetailResult;
+
     exerciseDetails.push({
       exerciseId: generateId(exerciseDetails, "exerciseId"),
       actionId,
-      ...buildExerciseDetails(detailsMap),
+      ...exerciseDetailResult,
     });
-    console.log("Exercising..", exerciseDetails)
+
+    userService.updateSpecificEnergyWithValue(
+      PHYSICAL_LABEL,
+      -1 * calorieBurnt
+    );
   }
 
   if (action.actionType === SLEEP_TYPE) {
+    const sleepDetailResult = buildSleepDetails(detailsMap);
     sleepDetails.push({
       sleepId: generateId(sleepDetails, "sleepId"),
       actionId,
-      ...buildSleepDetails(detailsMap),
+      ...sleepDetailResult,
     });
-    console.log("Sleeping..", sleepDetails)
+
+    userService.updateSpecificEnergyWithValue(MENTAL_LABEL, SLEEP_ENERGY_GAIN);
   }
 
   return structuredClone(action);
 }
 
-
 async function GetMentalActions(userId) {
   return actions
     .filter(
-      a =>
-        a.userId === userId &&
-        a.actionType === "Sleep" &&
-        !a.isDiscarded
+      (a) => a.userId === userId && a.actionType === "Sleep" && !a.isDiscarded
     )
-    .map(action => ({
+    .map((action) => ({
       ...action,
       details: getDetailsByActionId(action.actionId),
-      sleep: sleepDetails.find(s => s.actionId === action.actionId) || null,
+      sleep: sleepDetails.find((s) => s.actionId === action.actionId) || null,
     }));
 }
 
 async function GetPhysicalActions(userId) {
   return actions
     .filter(
-      a =>
+      (a) =>
         a.userId === userId &&
         (a.actionType === "Eat" || a.actionType === "Exercise") &&
         !a.isDiscarded
     )
-    .map(action => ({
+    .map((action) => ({
       ...action,
       details: getDetailsByActionId(action.actionId),
       eat:
         action.actionType === "Eat"
-          ? eatDetails.find(e => e.actionId === action.actionId)
+          ? eatDetails.find((e) => e.actionId === action.actionId)
           : null,
       exercise:
         action.actionType === "Exercise"
-          ? exerciseDetails.find(e => e.actionId === action.actionId)
+          ? exerciseDetails.find((e) => e.actionId === action.actionId)
           : null,
     }));
 }

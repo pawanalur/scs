@@ -14,7 +14,7 @@ import {
   MAX_PHYSICAL_VAL,
   PHYSICAL_LABEL,
   MENTAL_LABEL,
-} from "../../Shared/components/Constants/EnergyDetailConstants";
+} from "../../Shared/components/Constants/EnergyDetailConstants.jsx";
 
 function TopBar() {
   const navigate = useNavigate();

@@ -16,8 +16,11 @@ This is the initial version that is intended to be "Pure" frontend. The followin
 
 ### These are completed tasks for this version:
 
-- Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these
-- Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
+- All energy calculations should work properly:
+  - Every sleep, mental energy should rise - Whenever I submit a sleep action, I should update mental energy (connect the 2 providers, and have a userService updateEnergy function)
+  - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should update physical energy.
+  - Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these
+  - Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
 
 ## Version: Fullstack Demo
 
