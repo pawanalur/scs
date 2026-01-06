@@ -4,10 +4,12 @@
 
 This is the initial version that is intended to be "Pure" frontend. The following features are to be implemented:
 
-- All energy calculations should work properly
-  - Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
+- All energy calculations should work properly:
+
   - Every sleep, mental energy should rise - Whenever I submit a sleep action, I should update mental energy (connect the 2 providers, and have a userService updateEnergy function)
   - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should update physical energy.
+
+- Create Logout, ensure proper NULL values set.
 - Display only “Action”, and “Energy Change” in the logs - Create a very simplistic UI for "Physical and Mental energy logs.
 - Create and Display "Action Log" - Create a simple "Action Log" button that displays just a list of names with start and end timestamps.
 - Deploy demo to the cloud.
@@ -15,13 +17,14 @@ This is the initial version that is intended to be "Pure" frontend. The followin
 ### These are completed tasks for this version:
 
 - Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these
+- Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
 
 ## Version: Fullstack Demo
 
 I will build the backend for this application. The following features will be implemented:
 
 - Create proper User Login and Signup pages.
-- Create Logout, and verify that sudden closes work as expected - The system should check that currentAction is fetched after logout.
+- Allow action to persist after logout - The system should check that currentAction is fetched after logout.
 - Instead of hardcoding, call Claude/OpenAI API for Calorie/Protein/Sugar value calculation.
 - Integrate the whole project with the backend.
 - Establish a basic CI/CD pipeline.

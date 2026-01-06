@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef } from "react";
+import { createContext, useContext, useState, useRef, useEffect } from "react";
 import { userService } from "../../mock/services/user.service.mock";
 
 import reactLogo from "../../assets/react.svg";
@@ -18,6 +18,7 @@ export function CurrentUserProvider({ children }) {
   const [profileIcon, setProfileIcon] = useState(reactLogo);
 
   const energyAlertsRef = useRef(null);
+  const energyTimerRef = useRef(null);
 
   function extractEnergyAlerts(loginResult) {
     return {
@@ -44,6 +45,18 @@ export function CurrentUserProvider({ children }) {
     setMentalEnergy(currUserDetails.mentalEnergy);
 
     energyAlertsRef.current = extractEnergyAlerts(currUserDetails);
+
+    if (energyTimerRef.current) {
+      clearInterval(energyTimerRef.current);
+    }
+
+    energyTimerRef.current = setInterval(() => {
+      const updated = userService.updateEnergy();
+      if (!updated) return;
+
+      setPhysicalEnergy(updated.physicalEnergy);
+      setMentalEnergy(updated.mentalEnergy);
+    }, 60000);
   }
 
   const userDetails = {

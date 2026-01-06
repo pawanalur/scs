@@ -52,7 +52,9 @@ function TopBar() {
           style={{ width: `${(value / max) * 100}%` }}
         ></div>
       </div>
-      <div className="text-sm font-semibold w-10 text-right">{value}</div>
+      <div className="text-sm font-semibold w-10 text-right">
+        {Math.floor(value)}
+      </div>
     </div>
   );
 
