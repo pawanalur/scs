@@ -1,14 +1,14 @@
 [
   {
     "energyAlertId": 1,
-    "warningHighPhysical": 80,
-    "warningHighMental": 80,
-    "errorHighPhysical": 90,
-    "errorHighMental": 90,
-    "warningLowPhysical": 30,
-    "warningLowMental": 30,
-    "errorLowPhysical": 15,
-    "errorLowMental": 15
+    "warningHighPhysical": 3000,
+    "warningHighMental": 2600,
+    "errorHighPhysical": 4500,
+    "errorHighMental": 3600,
+    "warningLowPhysical": 1200,
+    "warningLowMental": 1200,
+    "errorLowPhysical": 600,
+    "errorLowMental": 600
   },
   {
     "energyAlertId": 2,

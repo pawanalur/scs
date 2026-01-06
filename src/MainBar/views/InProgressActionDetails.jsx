@@ -1,5 +1,5 @@
 import MDEditor from "@uiw/react-md-editor";
-import { ACTION_TYPES } from "../../Shared/components/ActionTypeConstants";
+import { ACTION_TYPES } from "../../Shared/components/Constants/ActionTypeConstants";
 import { useCurrentAction } from "../components/CurrentActionProvider";
 
 function InProgressActionDetails() {

@@ -3,5 +3,10 @@
     "id": 1,
     "fullName": "Guest User",
     "inProgressTask": null
+  },
+  {
+    "id": 2,
+    "fullName": "Test User",
+    "inProgressTask": null
   }
 ]

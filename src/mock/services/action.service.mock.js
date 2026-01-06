@@ -3,7 +3,7 @@ import initialActionDetails from "../data/actionDetails.json";
 import initialEatDetails from "../data/eatDetails.json";
 import initialExerciseDetails from "../data/exerciseDetails.json";
 import initialSleepDetails from "../data/sleepDetails.json";
-import { EAT_TYPE, SLEEP_TYPE, EXERCISE_TYPE } from "../../Shared/components/ActionTypeConstants";
+import { EAT_TYPE, SLEEP_TYPE, EXERCISE_TYPE } from "../../Shared/components/Constants/ActionTypeConstants";
 
 /**
  * In-memory "DB"

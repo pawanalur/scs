@@ -7,22 +7,36 @@ import {
   SLEEP_TYPE,
   EAT_TYPE,
   EXERCISE_TYPE,
-} from "../../Shared/components/ActionTypeConstants";
+} from "../../Shared/components/Constants/ActionTypeConstants";
+
+import {
+  MAX_MENTAL_VAL,
+  MAX_PHYSICAL_VAL,
+  PHYSICAL_LABEL,
+  MENTAL_LABEL,
+} from "../../Shared/components/Constants/EnergyDetailConstants";
 
 function TopBar() {
   const navigate = useNavigate();
 
-  const { currentUser } = useCurrentUser();
+  const { currentUser, energyAlerts } = useCurrentUser();
   const { userName, mentalEnergy, physicalEnergy, profileIcon } = currentUser;
-  console.log("Current User: ", currentUser);
-  console.log("Full Name: ", userName);
 
-  // Helper function to choose color TODO CHANGE TO CORRECT FORMULA
-  const getEnergyColor = (value, max = 1000) => {
-    const percent = (value / max) * 100;
-    if (percent > 70) return "bg-green-500";
-    if (percent > 30) return "bg-yellow-400";
-    return "bg-red-500";
+  const getEnergyColor = (value, energyType) => {
+    if (!energyAlerts) return "bg-green-500";
+
+    const { warningLow, warningHigh, errorLow, errorHigh } =
+      energyAlerts[energyType];
+
+    if (value <= errorLow || value >= errorHigh) {
+      return "bg-red-500";
+    }
+
+    if (value <= warningLow || value >= warningHigh) {
+      return "bg-yellow-400";
+    }
+
+    return "bg-green-500";
   };
 
   const renderBar = (label, value, max = 1000) => (
@@ -33,7 +47,7 @@ function TopBar() {
         <div
           className={`h-full ${getEnergyColor(
             value,
-            max
+            label
           )} rounded-full transition-all duration-300`}
           style={{ width: `${(value / max) * 100}%` }}
         ></div>
@@ -59,7 +73,7 @@ function TopBar() {
 
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
-            {renderBar("Mental Energy", mentalEnergy, 100)}
+            {renderBar(MENTAL_LABEL, mentalEnergy, MAX_MENTAL_VAL)}
             <Button
               label="Sleep"
               className={buttonClasses}
@@ -80,7 +94,7 @@ function TopBar() {
 
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
-            {renderBar("Physical Energy", physicalEnergy, 2000)}
+            {renderBar(PHYSICAL_LABEL, physicalEnergy, MAX_PHYSICAL_VAL)}
             <Button
               label="Eat"
               className={buttonClasses}

@@ -3,16 +3,16 @@
     "energyDetailId": 1,
     "userId": 1,
     "energyAlertId": 1,
-    "physicalEnergy": 72,
-    "mentalEnergy": 65,
+    "physicalEnergy": 2000,
+    "mentalEnergy": 2000,
     "lastUpdated": "2025-11-22T10:15:30Z",
-    "physicalDrainPerMin": 0.4,
-    "mentalDrainPerMin": 0.2
+    "physicalDrainPerMin": 1.39,
+    "mentalDrainPerMin": 1.38
   },
   {
     "energyDetailId": 2,
     "userId": 2,
-    "energyAlertId": 2,
+    "energyAlertId": 1,
     "physicalEnergy": 48,
     "mentalEnergy": 52,
     "lastUpdated": "2025-11-22T17:40:10Z",

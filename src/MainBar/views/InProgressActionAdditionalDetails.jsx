@@ -6,7 +6,7 @@ import {
   EAT_CALORIE_KEY,
   EAT_SUGAR_KEY,
   EAT_PROTEIN_KEY,
-} from "../../Shared/components/ActionTypeConstants";
+} from "../../Shared/components/Constants/ActionTypeConstants";
 import GenerateEatAdditionalDetailsModal from "../components/GenerateEatAdditionalDetailsModal";
 
 function InProgressAdditionalActionDetails() {

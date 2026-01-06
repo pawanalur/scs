@@ -3,6 +3,11 @@ import { userService } from "../../mock/services/user.service.mock";
 
 import reactLogo from "../../assets/react.svg";
 
+import {
+  PHYSICAL_LABEL,
+  MENTAL_LABEL,
+} from "./Constants/EnergyDetailConstants";
+
 const CurrentUserContext = createContext();
 
 export function CurrentUserProvider({ children }) {
@@ -16,17 +21,17 @@ export function CurrentUserProvider({ children }) {
 
   function extractEnergyAlerts(loginResult) {
     return {
-      warning: {
-        lowPhysical: loginResult.warningLowPhysical,
-        lowMental: loginResult.warningLowMental,
-        highPhysical: loginResult.warningHighPhysical,
-        highMental: loginResult.warningHighMental,
+      [PHYSICAL_LABEL]: {
+        warningLow: loginResult.warningLowPhysical,
+        warningHigh: loginResult.warningHighPhysical,
+        errorLow: loginResult.errorLowPhysical,
+        errorHigh: loginResult.errorHighPhysical,
       },
-      error: {
-        lowPhysical: loginResult.errorLowPhysical,
-        lowMental: loginResult.errorLowMental,
-        highPhysical: loginResult.errorHighPhysical,
-        highMental: loginResult.errorHighMental,
+      [MENTAL_LABEL]: {
+        warningLow: loginResult.warningLowMental,
+        warningHigh: loginResult.warningHighMental,
+        errorLow: loginResult.errorLowMental,
+        errorHigh: loginResult.errorHighMental,
       },
     };
   }

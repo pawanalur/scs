@@ -4,7 +4,7 @@ import { actionService } from "../../mock/services/action.service.mock";
 import {
   GENERIC_TYPE,
   ACTION_TYPES,
-} from "../../Shared/components/ActionTypeConstants";
+} from "../../Shared/components/Constants/ActionTypeConstants";
 
 const CurrentActionContext = createContext();
 
