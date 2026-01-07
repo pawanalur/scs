@@ -4,6 +4,10 @@ const ActionTimer = forwardRef((props, ref) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const intervalRef = useRef(null);
 
+  function setElapsedSecondsExternally(seconds) {
+    setElapsedSeconds(seconds);
+  }
+
   function startTimer() {
     if (intervalRef.current) return;
 
@@ -42,6 +46,7 @@ const ActionTimer = forwardRef((props, ref) => {
     startTimer,
     endTimer,
     resetTimer,
+    setElapsedSecondsExternally,
   }));
 
   return <>{formattedTime}</>;

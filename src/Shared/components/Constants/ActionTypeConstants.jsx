@@ -45,3 +45,6 @@ export const EXERCISE_TYPE = "exercise";
 export const EAT_CALORIE_KEY = 0;
 export const EAT_SUGAR_KEY = 1;
 export const EAT_PROTEIN_KEY = 2;
+
+export const KEY_LABEL = "key";
+export const VALUE_LABEL = "value";

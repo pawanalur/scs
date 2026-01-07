@@ -9,7 +9,7 @@ import Button from "../../Shared/components/Button";
 import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
 
 function InProgressScreen() {
-  const { lifecycle, metadata } = useCurrentAction();
+  const { lifecycle, metadata, timing } = useCurrentAction();
   const { updateActionType } = metadata;
 
   const buttonClasses = "w-25 md:w-40 h-5 md:h-10 self-end md:self-center";
@@ -21,6 +21,22 @@ function InProgressScreen() {
   useEffect(() => {
     updateActionType(location.state?.actionType);
   }, [location.state?.actionType]);
+
+  useEffect(() => {
+    if (!timing.startAt) return;
+
+    let endDuration = Date.now();
+    if (lifecycle.isEnded()) endDuration = new Date(timing.endAt);
+
+    const elapsedSeconds = Math.floor(
+      (endDuration - new Date(timing.startAt).getTime()) / 1000
+    );
+
+    timerRef.current.setElapsedSecondsExternally(elapsedSeconds);
+    if (!lifecycle.isEnded()) {
+      timerRef.current.startTimer();
+    }
+  }, [timing.startAt]);
 
   function OnResetClick() {
     lifecycle.resetOrDiscardAction();
@@ -81,6 +97,7 @@ function InProgressScreen() {
           styleVariant="green"
           className={buttonClasses}
           onClick={OnStartClick}
+          disabled={lifecycle.isEnded()}
         />
         <Button
           label={`${lifecycle.isStarted() ? "Discard" : "Reset"}`}

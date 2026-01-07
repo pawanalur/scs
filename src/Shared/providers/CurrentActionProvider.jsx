@@ -1,10 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { actionService } from "../../mock/services/action.service.mock";
 
 import { useCurrentUser } from "./CurrentUserProvider";
 import {
   GENERIC_TYPE,
   ACTION_TYPES,
+  KEY_LABEL,
+  VALUE_LABEL,
 } from "../components/Constants/ActionTypeConstants";
 
 const CurrentActionContext = createContext();
@@ -27,7 +29,15 @@ export function CurrentActionProvider({ children }) {
     )
   );
 
-  const { refreshUserEnergy } = useCurrentUser();
+  const { refreshUserEnergy, inProgressActionID } = useCurrentUser();
+  const hasRestoredRef = useRef(false);
+
+  useEffect(() => {
+    if (!inProgressActionID || hasRestoredRef.current) return;
+
+    hasRestoredRef.current = true;
+    restoreInProgressAction();
+  }, [inProgressActionID]);
 
   function resetAction() {
     setActionId(null);
@@ -67,6 +77,56 @@ export function CurrentActionProvider({ children }) {
     setActionAdditionalDetails(updated);
   }
 
+  function restoreAdditionalDetails(type, actionDetails) {
+    const updated = structuredClone(
+      ACTION_TYPES.find((item) => item.id === type)
+        ?.actionAdditionalDetailDefault
+    );
+
+    const restored = updated.map((item, index) => {
+      const keyMap = [
+        actionDetails.additionalKey1,
+        actionDetails.additionalKey2,
+        actionDetails.additionalKey3,
+      ];
+
+      const valueMap = [
+        actionDetails.additionalValue1,
+        actionDetails.additionalValue2,
+        actionDetails.additionalValue3,
+      ];
+
+      return {
+        ...item,
+        key: item.key || keyMap[index] || "",
+        value: valueMap[index] ?? "",
+      };
+    });
+
+    setActionAdditionalDetails(restored);
+  }
+
+  async function restoreInProgressAction() {
+    const inProgressAction = await actionService.GetInProgressAction();
+    console.log("Receiving Action..", inProgressAction);
+
+    if (inProgressAction) {
+      setActionId(inProgressAction.actionId);
+      setActionType(inProgressAction.actionType);
+      setActionDetails({
+        title: inProgressAction.details.title,
+        description: inProgressAction.details.description,
+      });
+      setStartAt(inProgressAction.startAt);
+      setEndAt(inProgressAction.endAt ?? null);
+
+      restoreAdditionalDetails(
+        inProgressAction.actionType,
+        inProgressAction.details
+      );
+    }
+  }
+
   async function startAction(userID) {
     if (actionId) return;
 
@@ -99,15 +159,20 @@ export function CurrentActionProvider({ children }) {
     });
   }
 
-  function endAction() {
-    setEndAt(new Date().toISOString());
+  async function endAction() {
+    if (!actionId) return;
+
+    const updatedAction = await actionService.EndAction(
+      actionId,
+      new Date().toISOString()
+    );
+    setEndAt(updatedAction.endAt);
   }
 
   async function submitAction() {
     if (!actionId) return;
 
     await actionService.SubmitAction(actionId, {
-      endAt,
       description: actionDetails.description,
       actionAdditionalDetails,
     });
@@ -146,6 +211,7 @@ export function CurrentActionProvider({ children }) {
 
   const timing = {
     startAt,
+    endAt,
   };
   return (
     <CurrentActionContext.Provider

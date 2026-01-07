@@ -28,7 +28,7 @@ function nowIso() {
 
 function minutesBetween(fromIso, toIso) {
   const diffMs = new Date(toIso) - new Date(fromIso);
-  return Math.max(0, diffMs / 1000);
+  return Math.max(0, diffMs / 60000);
 }
 
 function updateEnergy() {
@@ -126,6 +126,7 @@ async function login(userId = 1) {
   const loginResult = {
     userId: userId,
     userName: user.fullName,
+    inProgressActionId: user.inProgressActionId,
     physicalEnergy: energyDetail.physicalEnergy,
     mentalEnergy: energyDetail.mentalEnergy,
     warningLowPhysical: energyAlert.warningLowPhysical,
@@ -148,6 +149,25 @@ async function login(userId = 1) {
   return loginResult;
 }
 
+async function setInProgressAction(actionID) {
+  if (!currentEnergyState.userId) return;
+
+  const user = userDetails.find((u) => u.id === currentEnergyState.userId);
+  if (user) {
+    user.inProgressActionId = actionID;
+  }
+}
+
+async function clearInProgressAction() {
+  await setInProgressAction(null);
+}
+
+async function getInProgressActionId() {
+  if (!currentEnergyState.userId) return;
+  const user = userDetails.find((u) => u.id === currentEnergyState.userId);
+  return user.inProgressActionId;
+}
+
 function logout() {
   currentEnergyState.userId = null;
   currentEnergyState.physicalEnergy = null;
@@ -161,5 +181,8 @@ export const userService = {
   login,
   updateEnergy,
   updateSpecificEnergyWithValue,
+  setInProgressAction,
+  clearInProgressAction,
+  getInProgressActionId,
   logout,
 };

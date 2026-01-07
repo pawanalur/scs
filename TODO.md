@@ -15,14 +15,13 @@ This is the initial version that is intended to be "Pure" frontend. The followin
   - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should update physical energy.
   - Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these
   - Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
-- Create Logout, ensure proper NULL values set.
+- Create Logout, ensure proper NULL values set. Allow action to persist after logout - The system should check that currentAction is fetched after logout.
 
 ## Version: Fullstack Demo
 
 I will build the backend for this application. The following features will be implemented:
 
 - Create proper User Login and Signup pages.
-- Allow action to persist after logout - The system should check that currentAction is fetched after logout.
 - Instead of hardcoding, call Claude/OpenAI API for Calorie/Protein/Sugar value calculation.
 - Integrate the whole project with the backend.
 - Establish a basic CI/CD pipeline.

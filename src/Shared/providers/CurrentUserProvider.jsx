@@ -16,6 +16,7 @@ export function CurrentUserProvider({ children }) {
   const [physicalEnergy, setPhysicalEnergy] = useState(1000);
   const [mentalEnergy, setMentalEnergy] = useState(1000);
   const [profileIcon, setProfileIcon] = useState(reactLogo);
+  const [inProgressActionID, setInProgressActionID] = useState(null);
 
   const energyAlertsRef = useRef(null);
   const energyTimerRef = useRef(null);
@@ -51,6 +52,7 @@ export function CurrentUserProvider({ children }) {
     setuserName(currUserDetails.userName);
     setPhysicalEnergy(currUserDetails.physicalEnergy);
     setMentalEnergy(currUserDetails.mentalEnergy);
+    setInProgressActionID(currUserDetails.inProgressActionId);
 
     energyAlertsRef.current = extractEnergyAlerts(currUserDetails);
 
@@ -81,6 +83,7 @@ export function CurrentUserProvider({ children }) {
     setPhysicalEnergy(null);
     setMentalEnergy(null);
     setProfileIcon(reactLogo);
+    setInProgressActionID(null);
 
     energyAlertsRef.current = null;
 
@@ -100,6 +103,7 @@ export function CurrentUserProvider({ children }) {
       value={{
         userLogin,
         refreshUserEnergy,
+        inProgressActionID,
         energyAlerts: energyAlertsRef.current,
         currentUser: userDetails,
         userLogout,

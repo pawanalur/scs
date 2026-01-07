@@ -104,6 +104,7 @@ async function CreateAction({
   };
 
   actions.push(newAction);
+  await userService.setInProgressAction(actionId);
 
   actionDetails.push({
     actionDetailId: generateId(actionDetails, "actionDetailId"),
@@ -119,6 +120,23 @@ async function CreateAction({
   });
 
   return structuredClone(newAction);
+}
+
+async function GetActionById(actionId) {
+  const action = actions.find((a) => a.actionId === actionId);
+  if (!action) return null;
+
+  return {
+    ...action,
+    details: getDetailsByActionId(actionId),
+  };
+}
+
+async function GetInProgressAction() {
+  const currentActionID = await userService.getInProgressActionId();
+  if (!currentActionID) return null;
+
+  return await GetActionById(currentActionID);
 }
 
 async function UpdateActionDetails(
@@ -145,18 +163,26 @@ async function DiscardAction(actionId) {
   action.endAt = null;
   action.duration = null;
 
+  await userService.clearInProgressAction();
+  return structuredClone(action);
+}
+
+async function EndAction(actionId, endAt) {
+  const action = actions.find((a) => a.actionId === actionId);
+  if (!action) throw new Error("Action not found");
+
+  if (!action.endAt) action.endAt = endAt;
+  action.duration = (new Date(endAt) - new Date(action.startAt)) / 60000;
+  console.log("Ending Action..", action);
   return structuredClone(action);
 }
 
 async function SubmitAction(
   actionId,
-  { endAt, description, actionAdditionalDetails }
+  { description, actionAdditionalDetails }
 ) {
   const action = actions.find((a) => a.actionId === actionId);
   if (!action) throw new Error("Action not found");
-
-  action.endAt = endAt;
-  action.duration = (new Date(endAt) - new Date(action.startAt)) / 60000;
 
   await UpdateActionDetails(actionId, {
     description,
@@ -204,6 +230,7 @@ async function SubmitAction(
     userService.updateSpecificEnergyWithValue(MENTAL_LABEL, SLEEP_ENERGY_GAIN);
   }
 
+  await userService.clearInProgressAction();
   return structuredClone(action);
 }
 
@@ -245,7 +272,9 @@ export const actionService = {
   CreateAction,
   UpdateActionDetails,
   DiscardAction,
+  EndAction,
   SubmitAction,
+  GetInProgressAction,
   GetMentalActions,
   GetPhysicalActions,
 };
