@@ -4,7 +4,6 @@
 
 This is the initial version that is intended to be "Pure" frontend. The following features are to be implemented:
 
-- Create Logout, ensure proper NULL values set.
 - Display only “Action”, and “Energy Change” in the logs - Create a very simplistic UI for "Physical and Mental energy logs.
 - Create and Display "Action Log" - Create a simple "Action Log" button that displays just a list of names with start and end timestamps.
 - Deploy demo to the cloud.
@@ -16,6 +15,7 @@ This is the initial version that is intended to be "Pure" frontend. The followin
   - Every Eat/Exercise, physical energy should change - Whenever I submit these actions, I should update physical energy.
   - Correct Energy Log colors - Update the JSON with correct values. Update the TopBar function to use these
   - Every minute, my energy levels should fall - Add "UpdateEnergy" to userService that calculates energy based on timestamp. Add a timer to userProvider that calls this every minute.
+- Create Logout, ensure proper NULL values set.
 
 ## Version: Fullstack Demo
 

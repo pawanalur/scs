@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../Shared/components/Button";
 import MobileMenuButton from "../components/MobileMenuButton";
 import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
+import { useCurrentAction } from "../../MainBar/components/CurrentActionProvider.jsx";
 import {
   SLEEP_TYPE,
   EAT_TYPE,
@@ -19,7 +20,8 @@ import {
 function TopBar() {
   const navigate = useNavigate();
 
-  const { currentUser, energyAlerts } = useCurrentUser();
+  const { currentUser, energyAlerts, userLogout } = useCurrentUser();
+  const { resetAction } = useCurrentAction().lifecycle;
   const { userName, mentalEnergy, physicalEnergy, profileIcon } = currentUser;
 
   const getEnergyColor = (value, energyType) => {
@@ -58,6 +60,12 @@ function TopBar() {
     </div>
   );
 
+  function handleLogout() {
+    resetAction();
+    userLogout();
+    navigate("/");
+  }
+
   const buttonClasses = "py-0 h-5 w-40 hidden md:inline-flex";
 
   return (
@@ -71,7 +79,15 @@ function TopBar() {
       </div>
 
       <div className="flex flex-col gap-2 grow">
-        <h3 className="text-lg font-semibold mb-2">Name: {userName}</h3>
+        <div className="flex justify-between">
+          <h3 className="text-lg font-semibold mb-2">Name: {userName}</h3>
+          <Button
+            label="Logout"
+            className="py-0 h-5 w-20"
+            styleVariant="red"
+            onClick={handleLogout}
+          />
+        </div>
 
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
@@ -86,12 +102,20 @@ function TopBar() {
             />
           </div>
 
-          <Button
-            label="View Log"
-            className={buttonClasses}
-            styleVariant="green"
-            onClick={() => navigate("/home/mental-log")}
-          />
+          <div class="flex gap-2">
+            <Button
+              label="Action Log"
+              className={buttonClasses}
+              styleVariant="green"
+              onClick={() => navigate("/home/mental-log")}
+            />
+            <Button
+              label="View Log"
+              className={buttonClasses}
+              styleVariant="green"
+              onClick={() => navigate("/home/mental-log")}
+            />
+          </div>
         </div>
 
         <div className="flex justify-between">

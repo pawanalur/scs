@@ -148,8 +148,18 @@ async function login(userId = 1) {
   return loginResult;
 }
 
+function logout() {
+  currentEnergyState.userId = null;
+  currentEnergyState.physicalEnergy = null;
+  currentEnergyState.mentalEnergy = null;
+  currentEnergyState.physicalDrainPerMin = null;
+  currentEnergyState.mentalDrainPerMin = null;
+  currentEnergyState.lastUpdatedTimestamp = null;
+}
+
 export const userService = {
   login,
   updateEnergy,
   updateSpecificEnergyWithValue,
+  logout,
 };

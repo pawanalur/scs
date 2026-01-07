@@ -141,6 +141,7 @@ export function CurrentActionProvider({ children }) {
     submitAction,
     isStarted,
     isEnded,
+    resetAction,
   };
 
   const timing = {

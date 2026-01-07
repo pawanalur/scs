@@ -75,6 +75,26 @@ export function CurrentUserProvider({ children }) {
     profileIcon,
   };
 
+  function resetUserState() {
+    setUserId(null);
+    setuserName(null);
+    setPhysicalEnergy(null);
+    setMentalEnergy(null);
+    setProfileIcon(reactLogo);
+
+    energyAlertsRef.current = null;
+
+    if (energyTimerRef.current) {
+      clearInterval(energyTimerRef.current);
+      energyTimerRef.current = null;
+    }
+  }
+
+  function userLogout() {
+    userService.logout();
+    resetUserState();
+  }
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -82,6 +102,7 @@ export function CurrentUserProvider({ children }) {
         refreshUserEnergy,
         energyAlerts: energyAlertsRef.current,
         currentUser: userDetails,
+        userLogout,
       }}
     >
       {children}

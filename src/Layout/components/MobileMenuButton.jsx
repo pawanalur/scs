@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
 
 import Button from "../../Shared/components/Button";
+import {
+  SLEEP_TYPE,
+  EAT_TYPE,
+  EXERCISE_TYPE,
+} from "../../Shared/components/Constants/ActionTypeConstants";
 
 function MobileMenuButton(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const buttonClasses = "py-0 h-5 w-[90%]";
   const menuScreen = (
@@ -25,22 +32,51 @@ function MobileMenuButton(props) {
       >
         <p className="py-1 text-gray-700 font-bold"> User Actions</p>
         <div className="flex flex-col gap-3 items-center">
-          <Button className={buttonClasses} label="M1" styleVariant="black" />
-          <Button className={buttonClasses} label="P1" styleVariant="black" />
-          <Button className={buttonClasses} label="P2" styleVariant="black" />
+          <Button
+            className={buttonClasses}
+            label="Sleep"
+            styleVariant="black"
+            onClick={() =>
+              navigate("/home", { state: { actionType: SLEEP_TYPE } })
+            }
+          />
+          <Button
+            className={buttonClasses}
+            label="Eat"
+            styleVariant="black"
+            onClick={() =>
+              navigate("/home", { state: { actionType: EAT_TYPE } })
+            }
+          />
+          <Button
+            className={buttonClasses}
+            label="Exercise"
+            styleVariant="black"
+            onClick={() =>
+              navigate("/home", { state: { actionType: EXERCISE_TYPE } })
+            }
+          />
         </div>
         <div className="border-t-4 border-gray-300 my-2 mt-3"></div>
         <p className="py-1 text-gray-700 font-bold"> View Log</p>
         <div className="flex flex-col gap-3 items-center">
           <Button
             className={buttonClasses}
+            label="All"
+            styleVariant="green"
+            onClick={() => navigate("/home/mental-log")}
+          />
+          <Button
+            className={buttonClasses}
             label="Mental"
             styleVariant="green"
+            onClick={() => navigate("/home/mental-log")}
           />
           <Button
             className={buttonClasses}
             label="Physical"
             styleVariant="green"
+            onClick={() => navigate("/home/physical-log")}
           />
         </div>
       </div>
