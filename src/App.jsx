@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
-import { CurrentUserProvider } from "./Shared/components/CurrentUserProvider.jsx";
+import { CurrentUserProvider } from "./Shared/providers/CurrentUserProvider.jsx";
 
 import AppRoutes from "./AppRoutes.jsx";
 

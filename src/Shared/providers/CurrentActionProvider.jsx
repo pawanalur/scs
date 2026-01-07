@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import { actionService } from "../../mock/services/action.service.mock";
 
-import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
+import { useCurrentUser } from "./CurrentUserProvider";
 import {
   GENERIC_TYPE,
   ACTION_TYPES,
-} from "../../Shared/components/Constants/ActionTypeConstants";
+} from "../components/Constants/ActionTypeConstants";
 
 const CurrentActionContext = createContext();
 

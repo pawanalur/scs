@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../Shared/components/Button";
 import MobileMenuButton from "../components/MobileMenuButton";
-import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
-import { useCurrentAction } from "../../MainBar/components/CurrentActionProvider.jsx";
+import { useCurrentUser } from "../../Shared/providers/CurrentUserProvider.jsx";
+import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider.jsx";
 import {
   SLEEP_TYPE,
   EAT_TYPE,

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 import TopBar from "./Layout/views/TopBar";
 import Sidebar from "./Layout/views/SideBar";
-import { CurrentActionProvider } from "./MainBar/components/CurrentActionProvider";
+import { CurrentActionProvider } from "./Shared/providers/CurrentActionProvider";
 
 import backgroundImage from "./assets/UserHome_Background.png";
 import "./UserHome.css";

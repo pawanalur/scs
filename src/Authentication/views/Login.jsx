@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "../../assets/UserLogin_Signup_Background.png";
-import { useCurrentUser } from "../../Shared/components/CurrentUserProvider";
+import { useCurrentUser } from "../../Shared/providers/CurrentUserProvider";
 
 function Login() {
   const navigate = useNavigate();

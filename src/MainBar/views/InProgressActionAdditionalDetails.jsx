@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../Shared/components/Button";
-import { useCurrentAction } from "../components/CurrentActionProvider";
+import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
 import {
   EAT_TYPE,
   EAT_CALORIE_KEY,

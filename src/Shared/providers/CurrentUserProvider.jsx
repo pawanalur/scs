@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useRef, useEffect } from "react";
-import { userService } from "../../mock/services/user.service.mock";
+import { userService } from "../../mock/services/user.service.mock.js";
 
 import reactLogo from "../../assets/react.svg";
 
 import {
   PHYSICAL_LABEL,
   MENTAL_LABEL,
-} from "./Constants/EnergyDetailConstants.jsx";
+} from "../components/Constants/EnergyDetailConstants.jsx";
 
 const CurrentUserContext = createContext();
 

@@ -6,7 +6,7 @@ import InProgressAdditionalActionDetails from "../views/InProgressActionAddition
 import ActionTimer from "../components/ActionTimer";
 import ConfirmDiscardModal from "../components/ConfirmDiscardModal";
 import Button from "../../Shared/components/Button";
-import { useCurrentAction } from "../components/CurrentActionProvider";
+import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
 
 function InProgressScreen() {
   const { lifecycle, metadata } = useCurrentAction();
