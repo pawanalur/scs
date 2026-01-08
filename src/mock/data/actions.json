@@ -2,7 +2,7 @@
   {
     "actionId": 101,
     "userId": 1,
-    "actionType": "Sleep",
+    "actionType": "sleep",
     "startAt": "2025-11-22T00:45:00Z",
     "endAt": "2025-11-22T06:15:00Z",
     "duration": 330,
@@ -12,7 +12,7 @@
   {
     "actionId": 102,
     "userId": 1,
-    "actionType": "Eat",
+    "actionType": "eat",
     "startAt": "2025-11-22T08:10:00Z",
     "endAt": "2025-11-22T08:25:00Z",
     "duration": 15,
@@ -22,7 +22,7 @@
   {
     "actionId": 103,
     "userId": 1,
-    "actionType": "Exercise",
+    "actionType": "exercise",
     "startAt": "2025-11-22T18:00:00Z",
     "endAt": "2025-11-22T18:45:00Z",
     "duration": 45,
@@ -32,7 +32,7 @@
   {
     "actionId": 104,
     "userId": 1,
-    "actionType": "Generic",
+    "actionType": "generic",
     "startAt": "2025-11-22T14:00:00Z",
     "endAt": "2025-11-22T14:20:00Z",
     "duration": 20,

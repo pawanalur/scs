@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
-import { MENTAL_LABEL } from "../../Shared/components/Constants/EnergyDetailConstants";
 import GenericLogPage from "../../Shared/views/GenericLogPage";
-function MentalLog() {
+
+function PhysicalLog() {
   const [entries, setEntries] = useState([]);
   const { getActionsByEnergyType } = useCurrentAction().metadata;
 
   useEffect(() => {
-    async function loadMentalActions() {
-      const result = await getActionsByEnergyType(MENTAL_LABEL);
+    async function loadActions() {
+      const result = await getActionsByEnergyType(null);
       setEntries(result);
     }
 
-    loadMentalActions();
+    loadActions();
   }, [getActionsByEnergyType]);
-  return <GenericLogPage pageTitle="Mental Energy Log" entries={entries} />;
+  return <GenericLogPage pageTitle="All Actions" entries={entries} />;
 }
 
-export default MentalLog;
+export default PhysicalLog;

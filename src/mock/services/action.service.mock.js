@@ -173,7 +173,6 @@ async function EndAction(actionId, endAt) {
 
   if (!action.endAt) action.endAt = endAt;
   action.duration = (new Date(endAt) - new Date(action.startAt)) / 60000;
-  console.log("Ending Action..", action);
   return structuredClone(action);
 }
 
@@ -234,38 +233,54 @@ async function SubmitAction(
   return structuredClone(action);
 }
 
-async function GetMentalActions(userId) {
-  return actions
-    .filter(
-      (a) => a.userId === userId && a.actionType === "Sleep" && !a.isDiscarded
-    )
+function computeEnergyChange(action) {
+  if (action.sleep?.mentalEnergyChange != null)
+    return action.sleep.mentalEnergyChange;
+
+  if (action.eat?.physicalEnergyChange != null)
+    return action.eat.physicalEnergyChange;
+
+  if (action.exercise?.physicalEnergyChange != null)
+    return action.exercise.physicalEnergyChange;
+
+  return null;
+}
+
+function mapActionToLogEntry(action) {
+  return {
+    id: action.actionId,
+    title: action.details?.title || "Untitled",
+    startAt: action.startAt,
+    endAt: action.endAt,
+    energyChange: computeEnergyChange(action),
+  };
+}
+
+function detectEnergyDomain(action) {
+  if (action.actionType == SLEEP_TYPE) return MENTAL_LABEL;
+
+  if (action.actionType == EAT_TYPE || action.actionType == EXERCISE_TYPE)
+    return PHYSICAL_LABEL;
+
+  return null;
+}
+
+async function GetActionsByEnergyType(userId, filterType = null) {
+  let toReturnActions = actions
+    .filter((a) => a.userId === userId && !a.isDiscarded)
+    .map((action) => ({ ...action, energyDomain: detectEnergyDomain(action) }))
+    .filter((a) => filterType === null || a.energyDomain === filterType)
     .map((action) => ({
       ...action,
       details: getDetailsByActionId(action.actionId),
       sleep: sleepDetails.find((s) => s.actionId === action.actionId) || null,
-    }));
-}
-
-async function GetPhysicalActions(userId) {
-  return actions
-    .filter(
-      (a) =>
-        a.userId === userId &&
-        (a.actionType === "Eat" || a.actionType === "Exercise") &&
-        !a.isDiscarded
-    )
-    .map((action) => ({
-      ...action,
-      details: getDetailsByActionId(action.actionId),
-      eat:
-        action.actionType === "Eat"
-          ? eatDetails.find((e) => e.actionId === action.actionId)
-          : null,
+      eat: eatDetails.find((e) => e.actionId === action.actionId) || null,
       exercise:
-        action.actionType === "Exercise"
-          ? exerciseDetails.find((e) => e.actionId === action.actionId)
-          : null,
-    }));
+        exerciseDetails.find((e) => e.actionId === action.actionId) || null,
+    }))
+    .map(mapActionToLogEntry)
+    .sort((a, b) => new Date(b.startAt) - new Date(a.startAt));
+  return toReturnActions;
 }
 
 export const actionService = {
@@ -275,6 +290,5 @@ export const actionService = {
   EndAction,
   SubmitAction,
   GetInProgressAction,
-  GetMentalActions,
-  GetPhysicalActions,
+  GetActionsByEnergyType,
 };

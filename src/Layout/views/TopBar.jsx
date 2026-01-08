@@ -107,7 +107,7 @@ function TopBar() {
               label="Action Log"
               className={buttonClasses}
               styleVariant="green"
-              onClick={() => navigate("/home/mental-log")}
+              onClick={() => navigate("/home/log")}
             />
             <Button
               label="View Log"

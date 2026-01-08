@@ -31,6 +31,7 @@ export function CurrentActionProvider({ children }) {
 
   const { refreshUserEnergy, inProgressActionID } = useCurrentUser();
   const hasRestoredRef = useRef(false);
+  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
     if (!inProgressActionID || hasRestoredRef.current) return;
@@ -108,7 +109,6 @@ export function CurrentActionProvider({ children }) {
 
   async function restoreInProgressAction() {
     const inProgressAction = await actionService.GetInProgressAction();
-    console.log("Receiving Action..", inProgressAction);
 
     if (inProgressAction) {
       setActionId(inProgressAction.actionId);
@@ -189,6 +189,13 @@ export function CurrentActionProvider({ children }) {
     return endAt !== null;
   }
 
+  async function getActionsByEnergyType(actionType) {
+    return await actionService.GetActionsByEnergyType(
+      currentUser.userId,
+      actionType
+    );
+  }
+
   const metadata = {
     actionType,
     updateActionType,
@@ -197,6 +204,7 @@ export function CurrentActionProvider({ children }) {
     actionAdditionalDetails,
     handleAdditionalDetailsChange,
     updateActionAdditionalDetails,
+    getActionsByEnergyType,
   };
 
   const lifecycle = {

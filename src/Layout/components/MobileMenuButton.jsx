@@ -64,7 +64,7 @@ function MobileMenuButton(props) {
             className={buttonClasses}
             label="All"
             styleVariant="green"
-            onClick={() => navigate("/home/mental-log")}
+            onClick={() => navigate("/home/log")}
           />
           <Button
             className={buttonClasses}
