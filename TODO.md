@@ -2,9 +2,7 @@
 
 ## Version: Demo
 
-This is the initial version that is intended to be "Pure" frontend. The following features are to be implemented:
-
-- Deploy demo to the cloud.
+This version is not complete and deployed!
 
 ### These are completed tasks for this version:
 
@@ -16,6 +14,7 @@ This is the initial version that is intended to be "Pure" frontend. The followin
 - Create Logout, ensure proper NULL values set. Allow action to persist after logout - The system should check that currentAction is fetched after logout.
 - Display only “Action”, and “Energy Change” in the logs - Create a very simplistic UI for "Physical and Mental energy logs.
 - Create and Display "Action Log" - Create a simple "Action Log" button that displays just a list of names with start and end timestamps.
+- Deploy demo to the cloud.
 
 ## Version: Fullstack Demo
 

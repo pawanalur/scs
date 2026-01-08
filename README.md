@@ -4,6 +4,8 @@ Self-Control Shop is a frontend-first React application used to prototype and va
 UI, state management, and gameplay mechanics before backend integration. The project intentionally uses mock services and local JSON data to allow rapid
 iteration on the UI and application logic without depending on a live API.
 
+[![Deployed on Vercel](https://vercel.com/button)](https://scs-sigma.vercel.app/)
+
 Tech Stack:
 
 - React
