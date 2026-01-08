@@ -9,12 +9,12 @@ import {
   EAT_TYPE,
   SLEEP_TYPE,
   EXERCISE_TYPE,
-} from "../../Shared/components/Constants/ActionTypeConstants";
+} from "../../Shared/components/constants/ActionTypeConstants";
 import {
   MENTAL_LABEL,
   PHYSICAL_LABEL,
   SLEEP_ENERGY_GAIN,
-} from "../../Shared/components/Constants/EnergyDetailConstants";
+} from "../../Shared/components/constants/EnergyDetailConstants";
 
 /**
  * In-memory "DB"

@@ -6,20 +6,31 @@ import reactLogo from "../../assets/react.svg";
 import {
   PHYSICAL_LABEL,
   MENTAL_LABEL,
-} from "../components/Constants/EnergyDetailConstants.jsx";
+  DEFAULT_ENERGY_VAL,
+  ENERGY_REFRESH_MS,
+} from "../components/constants/EnergyDetailConstants.jsx";
 
 const CurrentUserContext = createContext();
 
 export function CurrentUserProvider({ children }) {
   const [userId, setUserId] = useState(null);
-  const [userName, setuserName] = useState("Test");
-  const [physicalEnergy, setPhysicalEnergy] = useState(1000);
-  const [mentalEnergy, setMentalEnergy] = useState(1000);
+  const [userName, setUserName] = useState("Test");
+  const [physicalEnergy, setPhysicalEnergy] = useState(DEFAULT_ENERGY_VAL);
+  const [mentalEnergy, setMentalEnergy] = useState(DEFAULT_ENERGY_VAL);
   const [profileIcon, setProfileIcon] = useState(reactLogo);
   const [inProgressActionID, setInProgressActionID] = useState(null);
 
   const energyAlertsRef = useRef(null);
   const energyTimerRef = useRef(null);
+
+  const userDetails = {
+    userId,
+    userName,
+    physicalEnergy,
+    mentalEnergy,
+    inProgressActionID,
+    profileIcon,
+  };
 
   function extractEnergyAlerts(loginResult) {
     return {
@@ -38,50 +49,11 @@ export function CurrentUserProvider({ children }) {
     };
   }
 
-  function refreshUserEnergy() {
-    const updated = userService.updateEnergy();
-    if (!updated) return;
-
-    setPhysicalEnergy(updated.physicalEnergy);
-    setMentalEnergy(updated.mentalEnergy);
-  }
-
-  async function userLogin(userId) {
-    const currUserDetails = await userService.login(1);
-    setUserId(currUserDetails.userId);
-    setuserName(currUserDetails.userName);
-    setPhysicalEnergy(currUserDetails.physicalEnergy);
-    setMentalEnergy(currUserDetails.mentalEnergy);
-    setInProgressActionID(currUserDetails.inProgressActionId);
-
-    energyAlertsRef.current = extractEnergyAlerts(currUserDetails);
-
-    if (energyTimerRef.current) {
-      clearInterval(energyTimerRef.current);
-    }
-
-    energyTimerRef.current = setInterval(() => {
-      const updated = userService.updateEnergy();
-      if (!updated) return;
-
-      setPhysicalEnergy(updated.physicalEnergy);
-      setMentalEnergy(updated.mentalEnergy);
-    }, 10000);
-  }
-
-  const userDetails = {
-    userId,
-    userName,
-    physicalEnergy,
-    mentalEnergy,
-    profileIcon,
-  };
-
   function resetUserState() {
     setUserId(null);
-    setuserName(null);
-    setPhysicalEnergy(null);
-    setMentalEnergy(null);
+    setUserName(null);
+    setPhysicalEnergy(DEFAULT_ENERGY_VAL);
+    setMentalEnergy(DEFAULT_ENERGY_VAL);
     setProfileIcon(reactLogo);
     setInProgressActionID(null);
 
@@ -91,6 +63,38 @@ export function CurrentUserProvider({ children }) {
       clearInterval(energyTimerRef.current);
       energyTimerRef.current = null;
     }
+  }
+
+  function refreshUserEnergy() {
+    const updated = userService.updateEnergy();
+    if (!updated) return;
+
+    setPhysicalEnergy(updated.physicalEnergy);
+    setMentalEnergy(updated.mentalEnergy);
+  }
+
+  function startEnergyRefreshTimer() {
+    if (energyTimerRef.current) {
+      clearInterval(energyTimerRef.current);
+    }
+
+    energyTimerRef.current = setInterval(() => {
+      refreshUserEnergy();
+    }, ENERGY_REFRESH_MS);
+  }
+
+  async function userLogin(userId) {
+    const currUserDetails = await userService.login(userId);
+
+    setUserId(currUserDetails.userId);
+    setUserName(currUserDetails.userName);
+    setPhysicalEnergy(currUserDetails.physicalEnergy);
+    setMentalEnergy(currUserDetails.mentalEnergy);
+    setInProgressActionID(currUserDetails.inProgressActionId);
+
+    energyAlertsRef.current = extractEnergyAlerts(currUserDetails);
+
+    startEnergyRefreshTimer();
   }
 
   function userLogout() {
@@ -103,10 +107,9 @@ export function CurrentUserProvider({ children }) {
       value={{
         userLogin,
         refreshUserEnergy,
-        inProgressActionID,
+        userLogout,
         energyAlerts: energyAlertsRef.current,
         currentUser: userDetails,
-        userLogout,
       }}
     >
       {children}

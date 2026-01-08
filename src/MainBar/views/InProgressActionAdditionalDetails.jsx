@@ -6,7 +6,7 @@ import {
   EAT_CALORIE_KEY,
   EAT_SUGAR_KEY,
   EAT_PROTEIN_KEY,
-} from "../../Shared/components/Constants/ActionTypeConstants";
+} from "../../Shared/components/constants/ActionTypeConstants";
 import GenerateEatAdditionalDetailsModal from "../components/GenerateEatAdditionalDetailsModal";
 
 function InProgressAdditionalActionDetails() {
@@ -25,7 +25,7 @@ function InProgressAdditionalActionDetails() {
     sugarValue,
     proteinValue
   ) {
-    if (actionType == EAT_TYPE) {
+    if (actionType === EAT_TYPE) {
       handleAdditionalDetailsChange(EAT_CALORIE_KEY, "value", calorieValue);
       handleAdditionalDetailsChange(EAT_SUGAR_KEY, "value", sugarValue);
       handleAdditionalDetailsChange(EAT_PROTEIN_KEY, "value", proteinValue);
@@ -78,12 +78,12 @@ function InProgressAdditionalActionDetails() {
               type="text"
               placeholder={`Value ${index + 1}`}
               value={item.value}
-              disabled={item.valuedisabled}
+              disabled={item.valueDisabled}
               onChange={(e) =>
                 handleAdditionalDetailsChange(index, "value", e.target.value)
               }
               className={`bg-white/80 border-2 rounded-md px-3 py-1 disabled:opacity-60 ${
-                item.valuedisabled ? "border-gray-300" : "border-blue-500"
+                item.valueDisabled ? "border-gray-300" : "border-blue-500"
               }`}
             />
           </div>

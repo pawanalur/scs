@@ -7,7 +7,7 @@ import {
   MENTAL_LABEL,
   MAX_PHYSICAL_VAL,
   MAX_MENTAL_VAL,
-} from "../../Shared/components/Constants/EnergyDetailConstants";
+} from "../../Shared/components/constants/EnergyDetailConstants";
 
 let energyDetails = structuredClone(initialEnergyDetails);
 let userDetails = structuredClone(initialUserDetails);

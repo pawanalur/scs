@@ -5,9 +5,7 @@ import { useCurrentUser } from "./CurrentUserProvider";
 import {
   GENERIC_TYPE,
   ACTION_TYPES,
-  KEY_LABEL,
-  VALUE_LABEL,
-} from "../components/Constants/ActionTypeConstants";
+} from "../components/constants/ActionTypeConstants";
 
 const CurrentActionContext = createContext();
 
@@ -29,16 +27,15 @@ export function CurrentActionProvider({ children }) {
     )
   );
 
-  const { refreshUserEnergy, inProgressActionID } = useCurrentUser();
+  const { refreshUserEnergy, currentUser } = useCurrentUser();
   const hasRestoredRef = useRef(false);
-  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
-    if (!inProgressActionID || hasRestoredRef.current) return;
+    if (!currentUser.inProgressActionID || hasRestoredRef.current) return;
 
     hasRestoredRef.current = true;
     restoreInProgressAction();
-  }, [inProgressActionID]);
+  }, [currentUser.inProgressActionID]);
 
   function resetAction() {
     setActionId(null);
@@ -127,11 +124,11 @@ export function CurrentActionProvider({ children }) {
     }
   }
 
-  async function startAction(userID) {
+  async function startAction() {
     if (actionId) return;
 
     const action = await actionService.CreateAction({
-      userId: userID,
+      userId: currentUser.userId,
       actionType,
       actionTitle: actionDetails.title,
       actionDescription: actionDetails.description,

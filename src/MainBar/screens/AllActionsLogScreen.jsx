@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
 import GenericLogPage from "../../Shared/views/GenericLogPage";
 
-function PhysicalLog() {
+function AllActionsLogScreen() {
   const [entries, setEntries] = useState([]);
   const { getActionsByEnergyType } = useCurrentAction().metadata;
 
@@ -17,4 +17,4 @@ function PhysicalLog() {
   return <GenericLogPage pageTitle="All Actions" entries={entries} />;
 }
 
-export default PhysicalLog;
+export default AllActionsLogScreen;

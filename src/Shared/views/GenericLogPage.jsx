@@ -30,7 +30,7 @@ function GenericLogPage({ pageTitle, entries }) {
 
             <span>
               <strong>End:</strong>{" "}
-              {formatLocalDateTime(entry.endAt) ?? "In Progress"}
+              {entry.endAt ? formatLocalDateTime(entry.endAt) : "In Progress"}
             </span>
 
             {entry.energyChange != null && (

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
-import { PHYSICAL_LABEL } from "../../Shared/components/Constants/EnergyDetailConstants";
+import { PHYSICAL_LABEL } from "../../Shared/components/constants/EnergyDetailConstants";
 import GenericLogPage from "../../Shared/views/GenericLogPage";
 
-function PhysicalLog() {
+function PhysicalLogScreen() {
   const [entries, setEntries] = useState([]);
   const { getActionsByEnergyType } = useCurrentAction().metadata;
 
@@ -18,4 +18,4 @@ function PhysicalLog() {
   return <GenericLogPage pageTitle="Physical Energy Log" entries={entries} />;
 }
 
-export default PhysicalLog;
+export default PhysicalLogScreen;

@@ -4,7 +4,7 @@ import InProgressScreen from "./MainBar/screens/InProgressScreen";
 import UserHome from "./UserHome";
 
 const QuestScreen = lazy(() => import("./MainBar/screens/QuestScreen"));
-const ActionLog = lazy(() => import("./MainBar/screens/AllActionsLog"));
+const ActionLog = lazy(() => import("./MainBar/screens/AllActionsLogScreen"));
 const PhysicalLog = lazy(() => import("./MainBar/screens/PhysicalLogScreen"));
 const MentalLog = lazy(() => import("./MainBar/screens/MentalLogScreen"));
 const ShopScreen = lazy(() => import("./MainBar/screens/ShopScreen"));

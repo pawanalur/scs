@@ -3,36 +3,36 @@ export const ACTION_TYPES = [
     id: "generic",
     label: "Generic Action",
     actionAdditionalDetailDefault: [
-      { key: "", value: "", keyDisabled: false, valuedisabled: false },
-      { key: "", value: "", keyDisabled: false, valuedisabled: false },
-      { key: "", value: "", keyDisabled: false, valuedisabled: false },
+      { key: "", value: "", keyDisabled: false, valueDisabled: false },
+      { key: "", value: "", keyDisabled: false, valueDisabled: false },
+      { key: "", value: "", keyDisabled: false, valueDisabled: false },
     ],
   },
   {
     id: "sleep",
     label: "Sleep",
     actionAdditionalDetailDefault: [
-      { key: "", value: "", keyDisabled: true, valuedisabled: true },
-      { key: "", value: "", keyDisabled: true, valuedisabled: true },
-      { key: "", value: "", keyDisabled: true, valuedisabled: true },
+      { key: "", value: "", keyDisabled: true, valueDisabled: true },
+      { key: "", value: "", keyDisabled: true, valueDisabled: true },
+      { key: "", value: "", keyDisabled: true, valueDisabled: true },
     ],
   },
   {
     id: "eat",
     label: "Eat",
     actionAdditionalDetailDefault: [
-      { key: "Calories", value: "", keyDisabled: true, valuedisabled: false },
-      { key: "Sugar(g)", value: "", keyDisabled: true, valuedisabled: false },
-      { key: "Protein(g)", value: "", keyDisabled: true, valuedisabled: false },
+      { key: "Calories", value: "", keyDisabled: true, valueDisabled: false },
+      { key: "Sugar(g)", value: "", keyDisabled: true, valueDisabled: false },
+      { key: "Protein(g)", value: "", keyDisabled: true, valueDisabled: false },
     ],
   },
   {
     id: "exercise",
     label: "Exercise",
     actionAdditionalDetailDefault: [
-      { key: "Calories", value: "", keyDisabled: true, valuedisabled: false },
-      { key: "Type", value: "", keyDisabled: true, valuedisabled: false },
-      { key: "", value: "", keyDisabled: true, valuedisabled: true },
+      { key: "Calories", value: "", keyDisabled: true, valueDisabled: false },
+      { key: "Type", value: "", keyDisabled: true, valueDisabled: false },
+      { key: "", value: "", keyDisabled: true, valueDisabled: true },
     ],
   },
 ];

@@ -7,7 +7,7 @@ import {
   SLEEP_TYPE,
   EAT_TYPE,
   EXERCISE_TYPE,
-} from "../../Shared/components/Constants/ActionTypeConstants";
+} from "../../Shared/components/constants/ActionTypeConstants";
 
 function MobileMenuButton(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

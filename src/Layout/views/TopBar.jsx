@@ -8,14 +8,14 @@ import {
   SLEEP_TYPE,
   EAT_TYPE,
   EXERCISE_TYPE,
-} from "../../Shared/components/Constants/ActionTypeConstants";
+} from "../../Shared/components/constants/ActionTypeConstants.jsx";
 
 import {
   MAX_MENTAL_VAL,
   MAX_PHYSICAL_VAL,
   PHYSICAL_LABEL,
   MENTAL_LABEL,
-} from "../../Shared/components/Constants/EnergyDetailConstants.jsx";
+} from "../../Shared/components/constants/EnergyDetailConstants.jsx";
 
 function TopBar() {
   const navigate = useNavigate();

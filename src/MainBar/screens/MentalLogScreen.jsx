@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCurrentAction } from "../../Shared/providers/CurrentActionProvider";
-import { MENTAL_LABEL } from "../../Shared/components/Constants/EnergyDetailConstants";
+import { MENTAL_LABEL } from "../../Shared/components/constants/EnergyDetailConstants";
 import GenericLogPage from "../../Shared/views/GenericLogPage";
-function MentalLog() {
+function MentalLogScreen() {
   const [entries, setEntries] = useState([]);
   const { getActionsByEnergyType } = useCurrentAction().metadata;
 
@@ -17,4 +17,4 @@ function MentalLog() {
   return <GenericLogPage pageTitle="Mental Energy Log" entries={entries} />;
 }
 
-export default MentalLog;
+export default MentalLogScreen;

@@ -16,7 +16,6 @@ function InProgressScreen() {
   const location = useLocation();
   const timerRef = useRef();
   const [showConfirmDiscard, setShowConfirmDiscard] = useState(false);
-  const TEMP_USER_ID = 1;
 
   useEffect(() => {
     updateActionType(location.state?.actionType);
@@ -44,7 +43,7 @@ function InProgressScreen() {
   }
 
   function OnStartClick() {
-    lifecycle.startAction(TEMP_USER_ID);
+    lifecycle.startAction();
     timerRef.current.startTimer();
   }
 
