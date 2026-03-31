@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useRef, useEffect } from "react";
 import { userService } from "../../mock/services/user.service.mock.js";
+import { userApiService } from "../../services/api/user.service.js";
+import { APP_CONFIG } from "../../../config.js";
 
 import reactLogo from "../../assets/react.svg";
 
@@ -83,8 +85,18 @@ export function CurrentUserProvider({ children }) {
     }, ENERGY_REFRESH_MS);
   }
 
-  async function userLogin(userId) {
-    const currUserDetails = await userService.login(userId);
+  async function userLogin(username, password) {
+    let currUserDetails = null;
+
+    if (!APP_CONFIG.MockAPICall) {
+      // Attempt to call the FastAPI backend (Step 1 placeholder)
+      currUserDetails = await userApiService.login(username, password);
+    }
+
+    // Fallback to mock if config is set to mock OR if the real API isn't ready
+    if (!currUserDetails) {
+      currUserDetails = await mockUserService.login(1);
+    }
 
     setUserId(currUserDetails.userId);
     setUserName(currUserDetails.userName);
